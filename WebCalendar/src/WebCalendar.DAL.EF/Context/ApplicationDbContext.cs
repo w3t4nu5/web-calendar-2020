@@ -67,14 +67,14 @@ namespace WebCalendar.DAL.EF.Context
                 
             });
 
-            List<EntityEntry<IBaseEntity>> addedEntities = ChangeTracker.Entries<IBaseEntity>()
+            List<EntityEntry<IEntity>> addedEntities = ChangeTracker.Entries<IEntity>()
                 .Where(e => e.State == EntityState.Added).ToList();
             addedEntities.ForEach(e =>
             {
                 e.Entity.AddedDate = DateTime.UtcNow;
             });
 
-            List<EntityEntry<IBaseEntity>> modifiedEntities = ChangeTracker.Entries<IBaseEntity>()
+            List<EntityEntry<IEntity>> modifiedEntities = ChangeTracker.Entries<IEntity>()
                 .Where(e => e.State == EntityState.Modified).ToList();
             modifiedEntities.ForEach(e =>
             {

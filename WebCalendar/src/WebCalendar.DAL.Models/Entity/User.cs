@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace WebCalendar.DAL.Models.Entity
 {
-    public class User : IdentityUser<Guid>, IBaseEntity, ISoftDeletable
+    public class User : IdentityUser<Guid>, IEntity, ISoftDeletable
     {
         public DateTime AddedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
