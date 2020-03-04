@@ -10,7 +10,7 @@ namespace WebCalendar.DAL.Models.Entities
         {
             UserEvents = new HashSet<UserEvent>();
         }
-        
+
         public Guid Id { get; set; }
         public DateTime AddedDate { get; set; }
         public DateTime ModifiedDate { get; set; }

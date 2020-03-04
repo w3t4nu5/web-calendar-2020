@@ -1,39 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.DAL", "src\WebCalendar.DAL\WebCalendar.DAL.csproj", "{DD0B17E9-0617-48A7-963E-947CE8002A9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.DAL", "src\WebCalendar.DAL\WebCalendar.DAL.csproj", "{DD0B17E9-0617-48A7-963E-947CE8002A9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4D6F5C72-F1AE-4C84-9E9A-4189EEB2B9DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.UnitTests", "tests\WebCalendar.UnitTests\WebCalendar.UnitTests.csproj", "{07714517-DF9D-41E8-AA5E-BDD3B8DE42E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.UnitTests", "tests\WebCalendar.UnitTests\WebCalendar.UnitTests.csproj", "{07714517-DF9D-41E8-AA5E-BDD3B8DE42E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.DAL.Models", "src\WebCalendar.DAL.Models\WebCalendar.DAL.Models.csproj", "{EF74D348-BE42-4B18-A5E6-D4E3E66AE344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.DAL.Models", "src\WebCalendar.DAL.Models\WebCalendar.DAL.Models.csproj", "{EF74D348-BE42-4B18-A5E6-D4E3E66AE344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.Common", "src\WebCalendar.Common\WebCalendar.Common.csproj", "{B0EB92FF-FC27-4400-973F-792BF0A3B76E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Common", "src\WebCalendar.Common\WebCalendar.Common.csproj", "{B0EB92FF-FC27-4400-973F-792BF0A3B76E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.DAL.EF", "src\WebCalendar.DAL.EF\WebCalendar.DAL.EF.csproj", "{938C579C-F7A1-41F7-BF2D-26A14811F69B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.DAL.EF", "src\WebCalendar.DAL.EF\WebCalendar.DAL.EF.csproj", "{938C579C-F7A1-41F7-BF2D-26A14811F69B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.DependencyResolver", "src\WebCalendar.DependencyResolver\WebCalendar.DependencyResolver.csproj", "{2AD6B96F-F9A8-45CA-BCAE-F8C2B9C53CB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.DependencyResolver", "src\WebCalendar.DependencyResolver\WebCalendar.DependencyResolver.csproj", "{2AD6B96F-F9A8-45CA-BCAE-F8C2B9C53CB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.Services", "src\WebCalendar.Services\WebCalendar.Services.csproj", "{02544C5E-6730-4BFD-99DD-25FF66B55DFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Services", "src\WebCalendar.Services\WebCalendar.Services.csproj", "{02544C5E-6730-4BFD-99DD-25FF66B55DFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.WEB", "src\WebCalendar.WEB\WebCalendar.WEB.csproj", "{CE530050-9428-44B1-A96A-EBD44C98130D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Web", "src\WebCalendar.WEB\WebCalendar.Web.csproj", "{CE530050-9428-44B1-A96A-EBD44C98130D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{DD0B17E9-0617-48A7-963E-947CE8002A9A} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
-		{07714517-DF9D-41E8-AA5E-BDD3B8DE42E4} = {4D6F5C72-F1AE-4C84-9E9A-4189EEB2B9DB}
-		{EF74D348-BE42-4B18-A5E6-D4E3E66AE344} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
-		{B0EB92FF-FC27-4400-973F-792BF0A3B76E} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
-		{938C579C-F7A1-41F7-BF2D-26A14811F69B} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
-		{2AD6B96F-F9A8-45CA-BCAE-F8C2B9C53CB9} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
-		{02544C5E-6730-4BFD-99DD-25FF66B55DFD} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
-		{CE530050-9428-44B1-A96A-EBD44C98130D} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DD0B17E9-0617-48A7-963E-947CE8002A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -68,5 +61,21 @@ Global
 		{CE530050-9428-44B1-A96A-EBD44C98130D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE530050-9428-44B1-A96A-EBD44C98130D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE530050-9428-44B1-A96A-EBD44C98130D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD0B17E9-0617-48A7-963E-947CE8002A9A} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+		{07714517-DF9D-41E8-AA5E-BDD3B8DE42E4} = {4D6F5C72-F1AE-4C84-9E9A-4189EEB2B9DB}
+		{EF74D348-BE42-4B18-A5E6-D4E3E66AE344} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+		{B0EB92FF-FC27-4400-973F-792BF0A3B76E} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+		{938C579C-F7A1-41F7-BF2D-26A14811F69B} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+		{2AD6B96F-F9A8-45CA-BCAE-F8C2B9C53CB9} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+		{02544C5E-6730-4BFD-99DD-25FF66B55DFD} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+		{CE530050-9428-44B1-A96A-EBD44C98130D} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41FF8186-2245-46A0-9598-86DF678F0393}
 	EndGlobalSection
 EndGlobal
