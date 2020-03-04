@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 using WebCalendar.DAL.Models;
-using WebCalendar.DAL.Models.Entity;
+using WebCalendar.DAL.Models.Entities;
 
 namespace WebCalendar.DAL.EF.Context
 {
