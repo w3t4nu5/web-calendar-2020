@@ -4,9 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebCalendar.Common;
 using WebCalendar.Common.Contracts;
+using WebCalendar.DAL;
 using WebCalendar.DAL.EF;
 using WebCalendar.DAL.EF.Context;
-using WebCalendar.DAL.Models.Entity;
+using WebCalendar.DAL.Models.Entities;
 using WebCalendar.DAL.Repositories.Contracts;
 using WebCalendar.DAL.Repositories.Implementation;
 
@@ -28,7 +29,9 @@ namespace WebCalendar.DependencyResolver
             services.AddScoped<IDataInitializer, EFDataInitializer>();
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepositoryAsync<>));
-            
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddSingleton<IMapper, WebCalendarAutoMapper>();
         }
     }
