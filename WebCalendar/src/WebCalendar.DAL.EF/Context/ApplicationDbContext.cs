@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
+using WebCalendar.DAL.EF.Configurations;
 using WebCalendar.DAL.Models;
-using WebCalendar.DAL.Models.Entity;
+using WebCalendar.DAL.Models.Entities;
+using Task = WebCalendar.DAL.Models.Entities.Task;
 
 namespace WebCalendar.DAL.EF.Context
 {
@@ -22,7 +24,12 @@ namespace WebCalendar.DAL.EF.Context
         }
         
         public override DbSet<User> Users { get; set; }
-        
+        public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Reminder> Reminders { get; set; }
+        public DbSet<CalendarUser> CalendarUsers { get; set; }
+        public DbSet<UserEvent> UserEvents { get; set; }
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,8 +43,14 @@ namespace WebCalendar.DAL.EF.Context
             }
 
             base.OnModelCreating(modelBuilder);
-            
-            //modelBuilder.ApplyConfiguration<>
+
+            modelBuilder.ApplyConfiguration<User>(new UserConfiguration())
+                .ApplyConfiguration<Calendar>(new CalendarConfiguration())
+                .ApplyConfiguration<Event>(new EventConfiguration())
+                .ApplyConfiguration<Task>(new TaskConfiguration())
+                .ApplyConfiguration<Reminder>(new ReminderConfiguration())
+                .ApplyConfiguration<CalendarUser>(new CalendarUserConfiguration())
+                .ApplyConfiguration<UserEvent>(new UserEventConfiguration());
         }
         
         public override int SaveChanges()

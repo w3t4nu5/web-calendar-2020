@@ -6,7 +6,7 @@ using WebCalendar.Common;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL.EF;
 using WebCalendar.DAL.EF.Context;
-using WebCalendar.DAL.Models.Entity;
+using WebCalendar.DAL.Models.Entities;
 using WebCalendar.DAL.Repositories.Contracts;
 using WebCalendar.DAL.Repositories.Implementation;
 
