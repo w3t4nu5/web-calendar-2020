@@ -10,6 +10,8 @@ using WebCalendar.DAL.EF.Context;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.DAL.Repositories.Contracts;
 using WebCalendar.DAL.Repositories.Implementation;
+using WebCalendar.Services.Contracts;
+using WebCalendar.Services.Implementation;
 
 namespace WebCalendar.DependencyResolver
 {
@@ -29,6 +31,8 @@ namespace WebCalendar.DependencyResolver
             services.AddScoped<IDataInitializer, EFDataInitializer>();
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepositoryAsync<>));
+
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
