@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.DependencyResol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Services", "src\WebCalendar.Services\WebCalendar.Services.csproj", "{02544C5E-6730-4BFD-99DD-25FF66B55DFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Web", "src\WebCalendar.WEB\WebCalendar.Web.csproj", "{CE530050-9428-44B1-A96A-EBD44C98130D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Web", "src\WebCalendar.Web\WebCalendar.Web.csproj", "{CE530050-9428-44B1-A96A-EBD44C98130D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
