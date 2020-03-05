@@ -14,7 +14,8 @@ namespace WebCalendar.DAL.EF
         
         public void Seed()
         {
-            throw new System.NotImplementedException();
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
         }
     }
 }

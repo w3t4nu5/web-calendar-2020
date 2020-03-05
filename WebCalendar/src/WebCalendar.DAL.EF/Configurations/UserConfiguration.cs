@@ -10,11 +10,13 @@ namespace WebCalendar.DAL.EF.Configurations
         {
             builder.HasMany(u => u.CalendarUsers)
                 .WithOne(cu => cu.User)
-                .HasForeignKey(cu => cu.UserId);
+                .HasForeignKey(cu => cu.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(u => u.UserEvents)
                 .WithOne(ue => ue.User)
-                .HasForeignKey(ue => ue.UserId);
+                .HasForeignKey(ue => ue.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(u => u.Calendars)
                 .WithOne(c => c.User)

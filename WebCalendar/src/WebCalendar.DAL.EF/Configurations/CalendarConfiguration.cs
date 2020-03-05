@@ -9,7 +9,8 @@ namespace WebCalendar.DAL.EF.Configurations
         {
             builder.HasMany(c => c.CalendarUsers)
                 .WithOne(cu => cu.Calendar)
-                .HasForeignKey(cu => cu.CalendarId);
+                .HasForeignKey(cu => cu.CalendarId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(c => c.User)
                 .WithMany(u => u.Calendars)
