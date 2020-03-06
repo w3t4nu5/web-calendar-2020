@@ -54,16 +54,32 @@ namespace WebCalendar.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IdentityResult> RegisterAsync(UserAccountServiceModel userAccountServiceModel)
+        public async Task<IdentityResult> RegisterAsync(UserRegisterServiceModel userRegisterServiceModel)
         {
-            User user = _mapper.Map<UserAccountServiceModel, User>(userAccountServiceModel);
-            IdentityResult result = await _userManager.CreateAsync(user, userAccountServiceModel.Password);
+            User user = _mapper.Map<UserRegisterServiceModel, User>(userRegisterServiceModel);
+            IdentityResult result = await _userManager.CreateAsync(user, userRegisterServiceModel.Password);
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
             }
             return result;
 
+        }
+
+        public async Task<SignInResult> LoginAsync(UserLoginServiceModel userLoginServiceModel)
+        {
+            SignInResult result = await _signInManager.PasswordSignInAsync(
+                userLoginServiceModel.Email,
+                userLoginServiceModel.Password,
+                isPersistent: true,
+                false
+            );
+            return result;
+        }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

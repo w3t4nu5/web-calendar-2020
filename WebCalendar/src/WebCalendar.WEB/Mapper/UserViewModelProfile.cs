@@ -8,7 +8,8 @@ namespace WebCalendar.Web.Mapper
     {
         public UserViewModelProfile()
         {
-            CreateMap<UserRegistrationModel, UserAccountServiceModel>();
+            CreateMap<RegistrationModel, UserRegisterServiceModel>();
+            CreateMap<LoginModel, UserLoginServiceModel>();
         }
     }
 }

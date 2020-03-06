@@ -2,9 +2,10 @@
 
 namespace WebCalendar.Web.Models
 {
-    public class UserRegistrationModel
+    public class RegistrationModel
     {
         [Required]
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

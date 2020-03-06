@@ -9,10 +9,10 @@ namespace WebCalendar.Services.Mapper
         public UserServiceModelProfile()
         {
             CreateMap<User, UserServiceModel>();
-            CreateMap<User, UserAccountServiceModel>();
+            CreateMap<User, UserRegisterServiceModel>();
             
             CreateMap<UserServiceModel, User>();
-            CreateMap<UserAccountServiceModel, User>()
+            CreateMap<UserRegisterServiceModel, User>()
                 .ForMember(u => u.UserName, o => o.MapFrom(u => u.Email));
         }
     }

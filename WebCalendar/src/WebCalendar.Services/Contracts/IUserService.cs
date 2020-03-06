@@ -6,6 +6,8 @@ namespace WebCalendar.Services.Contracts
 {
     public interface IUserService : IAsyncService<UserServiceModel>
     {
-        Task<IdentityResult> RegisterAsync(UserAccountServiceModel userAccountServiceModel);
+        Task<IdentityResult> RegisterAsync(UserRegisterServiceModel userRegisterServiceModel);
+        Task<SignInResult> LoginAsync(UserLoginServiceModel userLoginServiceModel);
+        Task Logout();
     }
 }
