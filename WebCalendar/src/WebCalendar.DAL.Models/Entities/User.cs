@@ -15,7 +15,7 @@ namespace WebCalendar.DAL.Models.Entities
         
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsSubscribedToNativeNotifications { get; set; }
+        public bool IsSubscribedToNativeNotifications { get; set; } = true;
         public bool IsSubscribedToEmailNotifications { get; set; }
         public bool IsDeleted { get; set; }
 
