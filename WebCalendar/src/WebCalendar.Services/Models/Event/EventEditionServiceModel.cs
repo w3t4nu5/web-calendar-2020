@@ -6,8 +6,9 @@ using WebCalendar.Services.Models.User;
 
 namespace WebCalendar.Services.Models.Event
 {
-    public class EventCreationServiceModel
+    public class EventEditionServiceModel
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime StartTime { get; set; }
@@ -15,7 +16,6 @@ namespace WebCalendar.Services.Models.Event
         public NotifyBeforeMode NotifyBeforeMode { get; set; }
         public RepeatMode RepeatMode { get; set; }
 
-        public Guid CalendarId { get; set; }
-        public ICollection<UserSummaryModel> SubscribedUsers { get; set; }
+        public ICollection<UserServiceModel> SubscribedUsers { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.Services.Models.Event;
+using Task = System.Threading.Tasks.Task;
 
 namespace WebCalendar.Services.Implementation
 {
@@ -18,7 +19,7 @@ namespace WebCalendar.Services.Implementation
             Event @event = _mapper.Map<EventCreationServiceModel, Event>(entity);
             await _uow.GetRepository<Event>().AddAsync(@event);
 
-            return _uow.SaveChangesAsync();
+            await _uow.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Event>> GetAllAsync()
@@ -45,7 +46,7 @@ namespace WebCalendar.Services.Implementation
             EventServiceModel eventServiceModel = _mapper
                 .Map<Event, EventServiceModel>(@event);
 
-            return await RemoveAsync(eventServiceModel);
+            await RemoveAsync(eventServiceModel);
         }
 
         public async Task RemoveAsync(EventServiceModel entity)
@@ -54,7 +55,7 @@ namespace WebCalendar.Services.Implementation
                 .Map<EventServiceModel, Event>(entity);
             _uow.GetRepository<Event>().Remove(@event);
 
-            return await _uow.SaveChangesAsync();
+            await _uow.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(EventCreationServiceModel entity)
@@ -63,7 +64,7 @@ namespace WebCalendar.Services.Implementation
                 .Map<EventCreationServiceModel, Event>(entity);
             _uow.GetRepository<Event>().Update(@event);
 
-            return await _uow.SaveChangesAsync();
+            await _uow.SaveChangesAsync();
         }
     }
 }

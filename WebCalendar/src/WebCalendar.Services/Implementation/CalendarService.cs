@@ -8,6 +8,7 @@ using WebCalendar.DAL;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.Services.Contracts;
 using WebCalendar.Services.Models.Calendar;
+using Task = System.Threading.Tasks.Task;
 
 namespace WebCalendar.Services.Implementation
 {
@@ -20,7 +21,7 @@ namespace WebCalendar.Services.Implementation
             Calendar calendar = _mapper.Map<CalendarCreationServiceModel, Calendar>(entity);
             await _uow.GetRepository<Calendar>().AddAsync(calendar);
 
-            return _uow.SaveChangesAsync();
+            await _uow.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Calendar>> GetAllAsync()
@@ -47,7 +48,7 @@ namespace WebCalendar.Services.Implementation
             var caledarServiceModel = _mapper
                 .Map<Calendar, CalendarServiceModel>(calendar);
 
-            return await RemoveAsync(caledarServiceModel);
+            await RemoveAsync(caledarServiceModel);
         }
 
         public async Task RemoveAsync(CalendarServiceModel entity)
@@ -56,7 +57,7 @@ namespace WebCalendar.Services.Implementation
                 .Map<CalendarServiceModel, Calendar>(entity);
             _uow.GetRepository<Calendar>().Remove(calendar);
 
-            return await _uow.SaveChangesAsync();
+            await _uow.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(CalendarCreationServiceModel entity)
@@ -64,7 +65,7 @@ namespace WebCalendar.Services.Implementation
             Calendar calendar = _mapper.Map<CalendarCreationServiceModel, Calendar>(entity);
             _uow.GetRepository<Calendar>().Update(calendar);
 
-            return await _uow.SaveChangesAsync();
+            await _uow.SaveChangesAsync();
         }
 
         public async Task ShareToUser(Guid calendarId, Guid userId)
@@ -77,7 +78,7 @@ namespace WebCalendar.Services.Implementation
                 };
             await _uow.GetRepository<CalendarUser>().AddAsync(calendarUser);
 
-            return await _uow.SaveChangesAsync();
+            await _uow.SaveChangesAsync();
         }
 
         public async Task UnshareToUser(Guid calendarId, Guid userId)
@@ -87,7 +88,7 @@ namespace WebCalendar.Services.Implementation
                 && cu.CalendarId == calendarId);
             _uow.GetRepository<CalendarUser>().Remove(calendarUser);
 
-            return await _uow.SaveChangesAsync();
+            await _uow.SaveChangesAsync();
         }
     }
 }
