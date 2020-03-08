@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WebCalendar.Services.Models.Task;
+using WebCalendar.Services.Models.Calendar;
 
 namespace WebCalendar.Services.Contracts
 {
-    public interface ITaskService : IAsyncService<TaskServiceModel>
+    public interface ICalendarService : IAsyncService<CalendarServiceModel>
     {
     }
 }
