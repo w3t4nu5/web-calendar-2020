@@ -60,10 +60,10 @@ namespace WebCalendar.Services.Implementation
             await _uow.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(EventCreationServiceModel entity)
+        public async Task UpdateAsync(EventEditionServiceModel entity)
         {
             Event @event = _mapper
-                .Map<EventCreationServiceModel, Event>(entity);
+                .Map<EventEditionServiceModel, Event>(entity);
             _uow.GetRepository<Event>().Update(@event);
 
             await _uow.SaveChangesAsync();
