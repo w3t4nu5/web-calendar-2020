@@ -13,9 +13,23 @@ namespace WebCalendar.Services.Mapper
 
         public EventServiceModelProfile()
         {
-            CreateMap<EventCreationServiceModel, Event>();
+            CreateMap<EventCreationServiceModel, Event>() 
+                .ForMember(ue => ue.UserEvents,
+                o => o.MapFrom(c => c.SubscribedUsers.Select(su =>
+                        new UserEvent
+                        {
+                            UserId = su.Id
+                        }))); //NEED TO TEST IT 
 
-            CreateMap<EventEditionServiceModel, Event>();
+
+            CreateMap<EventEditionServiceModel, Event>()
+                .ForMember(ue => ue.UserEvents,
+                o => o.MapFrom(c => c.SubscribedUsers.Select(su =>
+                        new UserEvent
+                        {
+                            UserId = su.Id,
+                            EventId = c.Id
+                        })));
 
             CreateMap<Event, EventServiceModel>()
                 .ForMember(e => e.SubscribedUsers,

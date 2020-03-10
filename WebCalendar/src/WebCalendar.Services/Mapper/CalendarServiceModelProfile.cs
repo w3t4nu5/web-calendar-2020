@@ -14,6 +14,8 @@ namespace WebCalendar.Services.Mapper
         {
             CreateMap<CalendarCreationServiceModel, Calendar>();
 
+            CreateMap<CalendarEditionServiceModel, Calendar>();
+
             CreateMap<Calendar, CalendarServiceModel>()
                 .ForMember(c => c.SubscribedUsers,
                 o => o.MapFrom(c => c.CalendarUsers.Select(cu => cu.User)));

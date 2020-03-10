@@ -15,6 +15,6 @@ namespace WebCalendar.Services.Contracts
         Task<EventServiceModel> GetByIdAsync(Guid id);
         Task RemoveAsync(Guid id);
         Task RemoveAsync(EventServiceModel entity);
-        Task UpdateAsync(EventCreationServiceModel entity);
+        Task UpdateAsync(EventEditionServiceModel entity);
     }
 }
