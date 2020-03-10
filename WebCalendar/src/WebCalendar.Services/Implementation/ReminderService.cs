@@ -5,15 +5,17 @@ using System.Threading.Tasks;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
 using WebCalendar.DAL.Models.Entities;
+using WebCalendar.Services.Contracts;
 using WebCalendar.Services.Models.Reminder;
 using Task = System.Threading.Tasks.Task;
 
 namespace WebCalendar.Services.Implementation
 {
-    public class ReminderService
+    public class ReminderService : IReminderService
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+
         public async Task AddAsync(ReminderCreationServiceModel entity)
         {
             Reminder reminder = _mapper.Map<ReminderCreationServiceModel, Reminder>(entity);

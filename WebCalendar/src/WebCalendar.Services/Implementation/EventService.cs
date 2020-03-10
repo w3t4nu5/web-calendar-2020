@@ -5,15 +5,17 @@ using System.Threading.Tasks;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
 using WebCalendar.DAL.Models.Entities;
+using WebCalendar.Services.Contracts;
 using WebCalendar.Services.Models.Event;
 using Task = System.Threading.Tasks.Task;
 
 namespace WebCalendar.Services.Implementation
 {
-    public class EventService
+    public class EventService : IEventService
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+
         public async Task AddAsync(EventCreationServiceModel entity)
         {
             Event @event = _mapper.Map<EventCreationServiceModel, Event>(entity);

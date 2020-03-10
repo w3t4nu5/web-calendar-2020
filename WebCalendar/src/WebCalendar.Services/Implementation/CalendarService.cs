@@ -12,7 +12,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace WebCalendar.Services.Implementation
 {
-    public class CalendarService
+    public class CalendarService : ICalendarService
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;

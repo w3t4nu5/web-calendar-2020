@@ -4,15 +4,17 @@ using System.Text;
 using System.Threading.Tasks;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
+using WebCalendar.Services.Contracts;
 using WebCalendar.Services.Models.Task;
 using Entities = WebCalendar.DAL.Models.Entities;
 
 namespace WebCalendar.Services.Implementation
 {
-    public class TaskService
+    public class TaskService : ITaskService
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+
         public async Task AddAsync(TaskCreationServiceModel entity)
         {
             Entities.Task task = _mapper.Map<TaskCreationServiceModel, Entities.Task>(entity);
