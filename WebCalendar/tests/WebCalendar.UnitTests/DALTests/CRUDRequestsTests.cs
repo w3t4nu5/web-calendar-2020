@@ -19,12 +19,16 @@ namespace WebCalendar.UnitTests.DALTests
            .UseInMemoryDatabase(databaseName: "Database")
            .Options;
 
+            List<Calendar> calendarsSeed = new List<Calendar>
+            {
+                new Calendar { Name = "calendar 1" },
+                new Calendar { Name = "calendar 2" },
+                new Calendar { Name = "calendar 3" }
+            };
             // Insert seed data into the database using one instance of the context
             using (var context = new ApplicationDbContext(options))
             {
-                context.Calendars.Add(new Calendar { Name = "calendar 1", Description = "ghgj" });
-                context.Calendars.Add(new Calendar { Name = "calendar 2", Description = "ghgj" });
-                context.Calendars.Add(new Calendar { Name = "calendar 3", Description = "ghgj" });
+                context.Calendars.AddRange(calendarsSeed);
                 context.SaveChanges();
             }
 
@@ -35,7 +39,7 @@ namespace WebCalendar.UnitTests.DALTests
                     new EFRepositoryAsync<Calendar>(context);
                 List<Calendar> calendars = (await calendarRepository.GetAllAsync()).ToList();
 
-                Assert.Equal(3, calendars.Count);
+                Assert.Equal(calendarsSeed.Count, calendars.Count);
             }
         }
 
@@ -55,7 +59,7 @@ namespace WebCalendar.UnitTests.DALTests
 
                 List<Calendar> calendars = context.Calendars.ToList();
 
-                await calendarRepository.AddAsync(new Calendar { Name = "calendar 4", Description = "ghgj" });
+                await calendarRepository.AddAsync(new Calendar { Name = "calendar 4" });
                 await calendarRepository.SaveAsync();
 
                 List<Calendar> updatedCalendars = context.Calendars.ToList();
@@ -63,7 +67,7 @@ namespace WebCalendar.UnitTests.DALTests
                 int expected = calendars.Count + 1;
                 int actual = updatedCalendars.Count;
 
-                Assert.Equal(4, updatedCalendars.Count);
+                Assert.Equal(expected, actual);
             }
         }
 
@@ -82,7 +86,7 @@ namespace WebCalendar.UnitTests.DALTests
                 EFRepositoryAsync<Calendar> calendarRepository =
                     new EFRepositoryAsync<Calendar>(context);
 
-                await calendarRepository.AddAsync(new Calendar { Name = CALENDAR_NAME, Description = "ghgj" });
+                await calendarRepository.AddAsync(new Calendar { Name = CALENDAR_NAME });
                 await calendarRepository.SaveAsync();
 
                 List<Calendar> calendars = context.Calendars.ToList();
@@ -98,6 +102,40 @@ namespace WebCalendar.UnitTests.DALTests
                 int expected = calendars.Count() - 1;
 
                 Assert.Equal(expected, actual);
+            }
+        }
+
+        [Fact]
+        public async void UpdationTest()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+           .UseInMemoryDatabase(databaseName: "Database")
+           .Options;
+
+            const string CALENDAR_TO_UPDATE_NAME = "calendar to update";
+            const string UPDATED_CALENDAR_NAME = "updated calendar";
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                EFRepositoryAsync<Calendar> calendarRepository =
+                    new EFRepositoryAsync<Calendar>(context);
+
+                await calendarRepository.AddAsync(new Calendar { Name = CALENDAR_TO_UPDATE_NAME });
+                await calendarRepository.SaveAsync();
+
+                List<Calendar> calendars = context.Calendars.ToList();
+
+                Calendar calendarToUpdate = calendars
+                    .First(c => c.Name == CALENDAR_TO_UPDATE_NAME);
+                calendarToUpdate.Name = UPDATED_CALENDAR_NAME;
+                HashSet<Calendar> expectedCalendars = calendars.ToHashSet();
+
+                calendarRepository.Update(calendarToUpdate);
+                await calendarRepository.SaveAsync();
+
+                HashSet<Calendar> actualCalendars = context.Calendars.ToHashSet();
+
+                Assert.Equal(expectedCalendars, actualCalendars);
             }
         }
     }
