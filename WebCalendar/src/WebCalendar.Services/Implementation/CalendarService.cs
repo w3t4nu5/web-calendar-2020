@@ -18,7 +18,8 @@ namespace WebCalendar.Services.Implementation
         private readonly IMapper _mapper;
         public async Task AddAsync(CalendarCreationServiceModel entity)
         {
-            Calendar calendar = _mapper.Map<CalendarCreationServiceModel, Calendar>(entity);
+            Calendar calendar = _mapper
+                .Map<CalendarCreationServiceModel, Calendar>(entity);
             await _uow.GetRepository<Calendar>().AddAsync(calendar);
 
             await _uow.SaveChangesAsync();
@@ -36,7 +37,8 @@ namespace WebCalendar.Services.Implementation
         {
             var calendar = await _uow.GetRepository<Calendar>()
                 .GetByIdAsync(id);
-            var calendarServiceModel = _mapper.Map<Calendar, CalendarServiceModel>(calendar);
+            var calendarServiceModel = _mapper
+                .Map<Calendar, CalendarServiceModel>(calendar);
 
             return calendarServiceModel;
         }
@@ -62,7 +64,8 @@ namespace WebCalendar.Services.Implementation
 
         public async Task UpdateAsync(CalendarEditionServiceModel entity)
         {
-            Calendar calendar = _mapper.Map<CalendarEditionServiceModel, Calendar>(entity);
+            Calendar calendar = _mapper
+                .Map<CalendarEditionServiceModel, Calendar>(entity);
             _uow.GetRepository<Calendar>().Update(calendar);
 
             await _uow.SaveChangesAsync();
@@ -76,7 +79,8 @@ namespace WebCalendar.Services.Implementation
                     CalendarId = calendarId,
                     UserId = userId
                 };
-            await _uow.GetRepository<CalendarUser>().AddAsync(calendarUser);
+            await _uow.GetRepository<CalendarUser>()
+                .AddAsync(calendarUser);
 
             await _uow.SaveChangesAsync();
         }
