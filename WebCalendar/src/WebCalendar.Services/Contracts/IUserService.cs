@@ -10,7 +10,6 @@ namespace WebCalendar.Services.Contracts
     {
         Task<IEnumerable<UserServiceModel>> GetAllAsync();
         Task<UserServiceModel> GetByIdAsync(Guid id);
-        Task AddAsync(UserCreationServiceModel entity);
         Task UpdateAsync(UserEditionServiceModel entity);
         Task RemoveAsync(Guid id);
         Task RemoveAsync(UserServiceModel entity);

@@ -33,11 +33,6 @@ namespace WebCalendar.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task AddAsync(UserCreationServiceModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task UpdateAsync(UserEditionServiceModel entity)
         {
             throw new NotImplementedException();
