@@ -16,10 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ServicesTests\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\src\WebCalendar.DAL.EF\WebCalendar.DAL.EF.csproj" />
       <ProjectReference Include="..\..\src\WebCalendar.DAL\WebCalendar.DAL.csproj" />
     </ItemGroup>

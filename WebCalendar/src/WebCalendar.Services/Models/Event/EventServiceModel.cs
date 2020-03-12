@@ -19,6 +19,5 @@ namespace WebCalendar.Services.Models.Event
 
         public CalendarServiceModel Calendar { get; set; }
         public ICollection<UserServiceModel> SubscribedUsers { get; set; }
-        //public ICollection<UserEvent> UserEvents { get; set; }
     }
 }

@@ -15,6 +15,12 @@ namespace WebCalendar.Services.Implementation
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
+        public TaskService(IUnitOfWork uow, IMapper mapper)
+        {
+            _uow = uow;
+            _mapper = mapper;
+        }
+
         public async Task AddAsync(TaskCreationServiceModel entity)
         {
             Entities.Task task = _mapper.Map<TaskCreationServiceModel, Entities.Task>(entity);
@@ -23,12 +29,15 @@ namespace WebCalendar.Services.Implementation
             await _uow.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Entities.Task>> GetAllAsync()
+        public async Task<IEnumerable<TaskServiceModel>> GetAllAsync()
         {
             var tasks = await _uow.GetRepository<Entities.Task>()
                 .GetAllAsync();
 
-            return tasks;
+            IEnumerable<TaskServiceModel> taskServiceModels = _mapper
+                .Map<IEnumerable<Entities.Task>, IEnumerable<TaskServiceModel>>(tasks);
+
+            return taskServiceModels;
         }
 
         public async Task<TaskServiceModel> GetByIdAsync(Guid id)

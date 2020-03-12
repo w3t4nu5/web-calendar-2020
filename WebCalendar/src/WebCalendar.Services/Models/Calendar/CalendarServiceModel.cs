@@ -17,7 +17,6 @@ namespace WebCalendar.Services.Models.Calendar
         public Guid UserId { get; set; }
         public UserServiceModel User { get; set; }
 
-        //public ICollection<CalendarUser> CalendarUsers { get; set; }
         public ICollection<UserServiceModel> SubscribedUsers { get; set; }
         public ICollection<EventServiceModel> Events { get; set; }
         public ICollection<ReminderServiceModel> Reminders { get; set; }
