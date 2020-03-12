@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebCalendar.Common;
+﻿using WebCalendar.Common;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.Services.Models.Reminder;
 
@@ -19,6 +16,5 @@ namespace WebCalendar.Services.Mapper
 
             CreateMap<ReminderServiceModel, Reminder>();
         }
-
     }
 }

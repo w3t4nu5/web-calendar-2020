@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
 using WebCalendar.Services.Contracts;
 using WebCalendar.Services.Models.Task;
-using Entities = WebCalendar.DAL.Models.Entities;
 
 namespace WebCalendar.Services.Implementation
 {
     public class TaskService : ITaskService
     {
-        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
 
         public TaskService(IUnitOfWork uow, IMapper mapper)
         {
@@ -23,56 +21,56 @@ namespace WebCalendar.Services.Implementation
 
         public async Task AddAsync(TaskCreationServiceModel entity)
         {
-            Entities.Task task = _mapper.Map<TaskCreationServiceModel, Entities.Task>(entity);
-            await _uow.GetRepository<Entities.Task>().AddAsync(task);
+            DAL.Models.Entities.Task task = _mapper.Map<TaskCreationServiceModel, DAL.Models.Entities.Task>(entity);
+            await _uow.GetRepository<DAL.Models.Entities.Task>().AddAsync(task);
 
             await _uow.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TaskServiceModel>> GetAllAsync()
         {
-            var tasks = await _uow.GetRepository<Entities.Task>()
+            IEnumerable<DAL.Models.Entities.Task> tasks = await _uow.GetRepository<DAL.Models.Entities.Task>()
                 .GetAllAsync();
 
             IEnumerable<TaskServiceModel> taskServiceModels = _mapper
-                .Map<IEnumerable<Entities.Task>, IEnumerable<TaskServiceModel>>(tasks);
+                .Map<IEnumerable<DAL.Models.Entities.Task>, IEnumerable<TaskServiceModel>>(tasks);
 
             return taskServiceModels;
         }
 
         public async Task<TaskServiceModel> GetByIdAsync(Guid id)
         {
-            var task = await _uow.GetRepository<Entities.Task>()
+            DAL.Models.Entities.Task task = await _uow.GetRepository<DAL.Models.Entities.Task>()
                 .GetByIdAsync(id);
-            var taskServiceModel = _mapper.Map<Entities.Task, TaskServiceModel>(task);
+            TaskServiceModel taskServiceModel = _mapper.Map<DAL.Models.Entities.Task, TaskServiceModel>(task);
 
             return taskServiceModel;
         }
 
         public async Task RemoveAsync(Guid id)
         {
-            Entities.Task task = await _uow.GetRepository<Entities.Task>()
+            DAL.Models.Entities.Task task = await _uow.GetRepository<DAL.Models.Entities.Task>()
                 .GetByIdAsync(id);
             TaskServiceModel taskServiceModel = _mapper
-                .Map<Entities.Task, TaskServiceModel>(task);
+                .Map<DAL.Models.Entities.Task, TaskServiceModel>(task);
 
             await RemoveAsync(taskServiceModel);
         }
 
         public async Task RemoveAsync(TaskServiceModel entity)
         {
-            Entities.Task task = _mapper
-                .Map<TaskServiceModel, Entities.Task>(entity);
-            _uow.GetRepository<Entities.Task>().Remove(task);
+            DAL.Models.Entities.Task task = _mapper
+                .Map<TaskServiceModel, DAL.Models.Entities.Task>(entity);
+            _uow.GetRepository<DAL.Models.Entities.Task>().Remove(task);
 
             await _uow.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(TaskEditionServiceModel entity)
         {
-            Entities.Task task = _mapper
-                .Map<TaskEditionServiceModel, Entities.Task>(entity);
-            _uow.GetRepository<Entities.Task>().Update(task);
+            DAL.Models.Entities.Task task = _mapper
+                .Map<TaskEditionServiceModel, DAL.Models.Entities.Task>(entity);
+            _uow.GetRepository<DAL.Models.Entities.Task>().Update(task);
 
             await _uow.SaveChangesAsync();
         }

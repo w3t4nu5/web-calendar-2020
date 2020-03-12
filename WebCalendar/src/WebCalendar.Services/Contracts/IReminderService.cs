@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebCalendar.Services.Models.Reminder;
-using Task = System.Threading.Tasks.Task;
 
 namespace WebCalendar.Services.Contracts
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using WebCalendar.Services.Models.Event;
 using WebCalendar.Services.Models.Reminder;
 using WebCalendar.Services.Models.Task;

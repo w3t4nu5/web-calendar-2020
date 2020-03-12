@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using WebCalendar.Common;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.Services.Models.Calendar;
@@ -18,14 +15,14 @@ namespace WebCalendar.Services.Mapper
 
             CreateMap<Calendar, CalendarServiceModel>()
                 .ForMember(c => c.SubscribedUsers,
-                o => o.MapFrom(c => c.CalendarUsers.Select(cu => cu.User)));
+                    o => o.MapFrom(c => c.CalendarUsers.Select(cu => cu.User)));
 
             CreateMap<CalendarServiceModel, Calendar>()
                 .ForMember(c => c.CalendarUsers, o => o
-                    .MapFrom(c => c.SubscribedUsers.Select(su => 
-                        new CalendarUser 
-                        { 
-                            UserId = su.Id, 
+                    .MapFrom(c => c.SubscribedUsers.Select(su =>
+                        new CalendarUser
+                        {
+                            UserId = su.Id,
                             CalendarId = c.Id
                         })));
         }

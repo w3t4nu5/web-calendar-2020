@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using WebCalendar.DAL.Models.Entities.Enums;
 using WebCalendar.Services.Models.Calendar;
 using WebCalendar.Services.Models.User;

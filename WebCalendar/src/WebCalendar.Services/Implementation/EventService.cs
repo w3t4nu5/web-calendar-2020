@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
@@ -13,8 +12,8 @@ namespace WebCalendar.Services.Implementation
 {
     public class EventService : IEventService
     {
-        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
 
         public EventService(IUnitOfWork uow, IMapper mapper)
         {
@@ -32,7 +31,7 @@ namespace WebCalendar.Services.Implementation
 
         public async Task<IEnumerable<EventServiceModel>> GetAllAsync()
         {
-            var events = await _uow.GetRepository<Event>()
+            IEnumerable<Event> events = await _uow.GetRepository<Event>()
                 .GetAllAsync();
 
             IEnumerable<EventServiceModel> eventServiceModels = _mapper
@@ -43,9 +42,9 @@ namespace WebCalendar.Services.Implementation
 
         public async Task<EventServiceModel> GetByIdAsync(Guid id)
         {
-            var @event = await _uow.GetRepository<Event>()
+            Event @event = await _uow.GetRepository<Event>()
                 .GetByIdAsync(id);
-            var eventServiceModel = _mapper.Map<Event, EventServiceModel>(@event);
+            EventServiceModel eventServiceModel = _mapper.Map<Event, EventServiceModel>(@event);
 
             return eventServiceModel;
         }

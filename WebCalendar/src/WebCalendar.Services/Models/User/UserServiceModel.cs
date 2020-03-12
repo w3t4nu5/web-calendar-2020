@@ -12,7 +12,7 @@ namespace WebCalendar.Services.Models.User
         public string LastName { get; set; }
         public bool IsSubscribedToNativeNotifications { get; set; } = true;
         public bool IsSubscribedToEmailNotifications { get; set; }
-        
+
         public ICollection<CalendarServiceModel> SharedCalendars { get; set; }
         public ICollection<CalendarServiceModel> Calendars { get; set; }
         public ICollection<EventServiceModel> SharedEvents { get; set; }

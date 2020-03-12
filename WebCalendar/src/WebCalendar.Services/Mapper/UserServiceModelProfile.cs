@@ -10,7 +10,7 @@ namespace WebCalendar.Services.Mapper
         {
             CreateMap<User, UserServiceModel>();
             CreateMap<User, UserRegisterServiceModel>();
-            
+
             CreateMap<UserServiceModel, User>();
             CreateMap<UserRegisterServiceModel, User>()
                 .ForMember(u => u.UserName, o => o.MapFrom(u => u.Email));
