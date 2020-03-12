@@ -44,6 +44,10 @@ namespace WebCalendar.DependencyResolver
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepositoryAsync<>));
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICalendarService, CalendarService>();
+            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IReminderService, ReminderService>();
+            services.AddScoped<ITaskService, TaskService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
