@@ -22,6 +22,12 @@ namespace WebCalendar.DAL.EF.Context
         }
         
         public override DbSet<User> Users { get; set; }
+        public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<CalendarUser> CalendarUsers { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<UserEvent> UserEvents { get; set; }
+        public DbSet<Models.Entities.Task> Tasks { get; set; }
+        public DbSet<Reminder> Reminders { get; set; }
         
         
 

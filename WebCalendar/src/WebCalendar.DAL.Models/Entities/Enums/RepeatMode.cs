@@ -4,6 +4,8 @@ namespace WebCalendar.DAL.Models.Entities.Enums
     {
         Never,
         EveryDay,
-        EveryWeek
+        EveryWeek,
+        EvetyMonth,
+        EveryYear
     }
 }
