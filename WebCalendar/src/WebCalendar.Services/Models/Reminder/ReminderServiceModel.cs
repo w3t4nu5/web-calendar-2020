@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using WebCalendar.Services.Models.Calendar;
 
 namespace WebCalendar.Services.Models.Reminder

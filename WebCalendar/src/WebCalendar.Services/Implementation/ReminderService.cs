@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
@@ -13,8 +12,14 @@ namespace WebCalendar.Services.Implementation
 {
     public class ReminderService : IReminderService
     {
-        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
+
+        public ReminderService(IUnitOfWork uow, IMapper mapper)
+        {
+            _uow = uow;
+            _mapper = mapper;
+        }
 
         public async Task AddAsync(ReminderCreationServiceModel entity)
         {
@@ -24,19 +29,22 @@ namespace WebCalendar.Services.Implementation
             await _uow.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Reminder>> GetAllAsync()
+        public async Task<IEnumerable<ReminderServiceModel>> GetAllAsync()
         {
-            var reminders = await _uow.GetRepository<Reminder>()
+            IEnumerable<Reminder> reminders = await _uow.GetRepository<Reminder>()
                 .GetAllAsync();
 
-            return reminders;
+            IEnumerable<ReminderServiceModel> reminderServiceModels = _mapper
+                .Map<IEnumerable<Reminder>, IEnumerable<ReminderServiceModel>>(reminders);
+
+            return reminderServiceModels;
         }
 
         public async Task<ReminderServiceModel> GetByIdAsync(Guid id)
         {
-            var reminder = await _uow.GetRepository<Reminder>()
+            Reminder reminder = await _uow.GetRepository<Reminder>()
                 .GetByIdAsync(id);
-            var reminderServiceModel = _mapper.Map<Reminder, ReminderServiceModel>(reminder);
+            ReminderServiceModel reminderServiceModel = _mapper.Map<Reminder, ReminderServiceModel>(reminder);
 
             return reminderServiceModel;
         }

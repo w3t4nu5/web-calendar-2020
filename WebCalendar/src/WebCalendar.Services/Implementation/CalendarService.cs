@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
@@ -14,8 +12,15 @@ namespace WebCalendar.Services.Implementation
 {
     public class CalendarService : ICalendarService
     {
-        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
+
+        public CalendarService(IUnitOfWork uow, IMapper mapper)
+        {
+            _uow = uow;
+            _mapper = mapper;
+        }
+
         public async Task AddAsync(CalendarCreationServiceModel entity)
         {
             Calendar calendar = _mapper
@@ -25,19 +30,22 @@ namespace WebCalendar.Services.Implementation
             await _uow.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Calendar>> GetAllAsync()
+        public async Task<IEnumerable<CalendarServiceModel>> GetAllAsync()
         {
-            var calendars = await _uow.GetRepository<Calendar>()
+            IEnumerable<Calendar> calendars = await _uow.GetRepository<Calendar>()
                 .GetAllAsync();
 
-            return calendars;
+            IEnumerable<CalendarServiceModel> calendarServiceModels = _mapper
+                .Map<IEnumerable<Calendar>, IEnumerable<CalendarServiceModel>>(calendars);
+
+            return calendarServiceModels;
         }
 
         public async Task<CalendarServiceModel> GetByIdAsync(Guid id)
         {
-            var calendar = await _uow.GetRepository<Calendar>()
+            Calendar calendar = await _uow.GetRepository<Calendar>()
                 .GetByIdAsync(id);
-            var calendarServiceModel = _mapper
+            CalendarServiceModel calendarServiceModel = _mapper
                 .Map<Calendar, CalendarServiceModel>(calendar);
 
             return calendarServiceModel;
@@ -45,17 +53,17 @@ namespace WebCalendar.Services.Implementation
 
         public async Task RemoveAsync(Guid id)
         {
-            var calendar = await _uow.GetRepository<Calendar>()
+            Calendar calendar = await _uow.GetRepository<Calendar>()
                 .GetByIdAsync(id);
-            var caledarServiceModel = _mapper
+            CalendarServiceModel calendarServiceModel = _mapper
                 .Map<Calendar, CalendarServiceModel>(calendar);
 
-            await RemoveAsync(caledarServiceModel);
+            await RemoveAsync(calendarServiceModel);
         }
 
         public async Task RemoveAsync(CalendarServiceModel entity)
         {
-            var calendar = _mapper
+            Calendar calendar = _mapper
                 .Map<CalendarServiceModel, Calendar>(entity);
             _uow.GetRepository<Calendar>().Remove(calendar);
 
@@ -87,9 +95,9 @@ namespace WebCalendar.Services.Implementation
 
         public async Task UnshareToUser(Guid calendarId, Guid userId)
         {
-            var calendarUser = await _uow.GetRepository<CalendarUser>()
+            CalendarUser calendarUser = await _uow.GetRepository<CalendarUser>()
                 .GetFirstOrDefaultAsync(cu => cu.UserId == userId
-                && cu.CalendarId == calendarId);
+                                              && cu.CalendarId == calendarId);
             _uow.GetRepository<CalendarUser>().Remove(calendarUser);
 
             await _uow.SaveChangesAsync();

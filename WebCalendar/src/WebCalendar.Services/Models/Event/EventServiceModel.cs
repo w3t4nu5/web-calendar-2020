@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using WebCalendar.DAL.Models.Entities.Enums;
 using WebCalendar.Services.Models.Calendar;
 using WebCalendar.Services.Models.User;
@@ -19,6 +18,5 @@ namespace WebCalendar.Services.Models.Event
 
         public CalendarServiceModel Calendar { get; set; }
         public ICollection<UserServiceModel> SubscribedUsers { get; set; }
-        //public ICollection<UserEvent> UserEvents { get; set; }
     }
 }

@@ -12,10 +12,9 @@ namespace WebCalendar.Services.Implementation
 {
     public class UserService : IUserService
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-
         private readonly IMapper _mapper;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
         public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {
@@ -34,12 +33,7 @@ namespace WebCalendar.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task AddAsync(UserServiceModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(UserServiceModel entity)
+        public Task UpdateAsync(UserEditionServiceModel entity)
         {
             throw new NotImplementedException();
         }
@@ -58,12 +52,8 @@ namespace WebCalendar.Services.Implementation
         {
             User user = _mapper.Map<UserRegisterServiceModel, User>(userRegisterServiceModel);
             IdentityResult result = await _userManager.CreateAsync(user, userRegisterServiceModel.Password);
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false);
-            }
+            if (result.Succeeded) await _signInManager.SignInAsync(user, false);
             return result;
-
         }
 
         public async Task<SignInResult> LoginAsync(UserLoginServiceModel userLoginServiceModel)
@@ -71,7 +61,7 @@ namespace WebCalendar.Services.Implementation
             SignInResult result = await _signInManager.PasswordSignInAsync(
                 userLoginServiceModel.Email,
                 userLoginServiceModel.Password,
-                isPersistent: true,
+                true,
                 false
             );
             return result;
