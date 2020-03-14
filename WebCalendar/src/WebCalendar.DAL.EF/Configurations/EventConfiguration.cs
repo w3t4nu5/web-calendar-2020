@@ -15,6 +15,10 @@ namespace WebCalendar.DAL.EF.Configurations
             builder.HasOne(e => e.Calendar)
                 .WithMany(c => c.Events)
                 .HasForeignKey(e => e.CalendarId);
+
+            builder.HasMany(e => e.EventDays)
+                .WithOne(ed => ed.Event)
+                .HasForeignKey(ed => ed.EventId);
         }
     }
 }
