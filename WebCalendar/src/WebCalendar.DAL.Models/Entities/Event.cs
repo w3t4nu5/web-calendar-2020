@@ -20,8 +20,10 @@ namespace WebCalendar.DAL.Models.Entities
         public string Description { get; set; }
         public DateTime StartTime { get; set; } 
         public DateTime EndTime { get; set; }
-        public TimeSpan RepetitionInterval { get; set; }
-        public TimeSpan NotifyBeforeInterval { get; set; }
+        public TimeSpan? RepetitionInterval { get; set; }
+        public TimeSpan? NotifyBeforeInterval { get; set; }
+        public int? RepetitionsCount { get; set; }
+        public DateTime? RepetitionsEndTime { get; set; }
 
         public Guid CalendarId { get; set; }
         public Calendar Calendar { get; set; }

@@ -14,7 +14,9 @@ namespace WebCalendar.DAL.Models.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime StartTime { get; set; }
-        public TimeSpan RepetitionInterval { get; set; }
+        public TimeSpan? RepetitionInterval { get; set; }
+        public int? RepetitionsCount { get; set; }
+        public DateTime? RepetitionsEndTime { get; set; }
 
         public Guid CalendarId { get; set; }
         public Calendar Calendar { get; set; }

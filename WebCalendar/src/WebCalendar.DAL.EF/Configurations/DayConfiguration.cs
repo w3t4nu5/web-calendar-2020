@@ -20,37 +20,37 @@ namespace WebCalendar.DAL.EF.Configurations
             builder.HasData(
                 new Day
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Value = DayOfWeek.Sunday
                 },
                 new Day
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Value = DayOfWeek.Monday
-                }, 
+                },
                 new Day
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Value = DayOfWeek.Tuesday
                 },
                 new Day
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Value = DayOfWeek.Wednesday
-                }, 
+                },
                 new Day
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Value = DayOfWeek.Thursday
-                }, 
+                },
                 new Day
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Value = DayOfWeek.Friday
-                }, 
+                },
                 new Day
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Value = DayOfWeek.Saturday
                 }
             );

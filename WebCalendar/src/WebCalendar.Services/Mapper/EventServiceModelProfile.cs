@@ -14,8 +14,10 @@ namespace WebCalendar.Services.Mapper
                     o => o.MapFrom(c => c.SubscribedUsers.Select(su =>
                         new UserEvent
                         {
-                            UserId = su.Id
-                        }))); //NEED TO TEST IT 
+                            UserId = su.Id //NEED TO TEST IT 
+                        })))
+                .ForMember(e => e.EventDays,
+                    o => o.MapFrom(e => e.Days));
 
 
             CreateMap<EventEditionServiceModel, Event>()
@@ -25,11 +27,16 @@ namespace WebCalendar.Services.Mapper
                         {
                             UserId = su.Id,
                             EventId = c.Id
-                        })));
+                        })))
+                .ForMember(e => e.EventDays,
+                    o => o.MapFrom(e => e.Days));
 
             CreateMap<Event, EventServiceModel>()
                 .ForMember(e => e.SubscribedUsers,
-                    o => o.MapFrom(e => e.UserEvents.Select(ue => ue.User)));
+                    o => o.MapFrom(e => e.UserEvents.Select(ue => ue.User)))
+                .ForMember(e => e.Days,
+                    o => o.MapFrom(e => e.EventDays.Select(ed =>
+                        ed.Day.Value)));
 
             CreateMap<EventServiceModel, Event>()
                 .ForMember(ue => ue.UserEvents,
@@ -38,7 +45,9 @@ namespace WebCalendar.Services.Mapper
                         {
                             UserId = su.Id,
                             EventId = c.Id
-                        })));
+                        })))
+                .ForMember(e => e.EventDays,
+                    o => o.MapFrom(e => e.Days)); ;
         }
     }
 }
