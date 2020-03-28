@@ -14,6 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.2.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,12 +22,12 @@
         <Content Remove="$(SpaRoot)**" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-        <None Include="ClientApp\src\app\shared\interfaces.ts" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClientApp\src\app\login-page" />
-      <Folder Include="Controllers" />
+      <ProjectReference Include="..\WebCalendar.Common\WebCalendar.Common.csproj" />
+      <ProjectReference Include="..\WebCalendar.DependencyResolver\WebCalendar.DependencyResolver.csproj" />
+      <ProjectReference Include="..\WebCalendar.Services\WebCalendar.Services.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

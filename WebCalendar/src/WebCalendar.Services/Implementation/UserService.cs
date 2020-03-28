@@ -52,7 +52,7 @@ namespace WebCalendar.Services.Implementation
         {
             User user = _mapper.Map<UserRegisterServiceModel, User>(userRegisterServiceModel);
             IdentityResult result = await _userManager.CreateAsync(user, userRegisterServiceModel.Password);
-            if (result.Succeeded) await _signInManager.SignInAsync(user, false);
+            //if (result.Succeeded) await _signInManager.SignInAsync(user, false);
             return result;
         }
 

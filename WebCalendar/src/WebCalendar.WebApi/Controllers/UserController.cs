@@ -35,6 +35,7 @@ namespace WebCalendar.WebApi.Controllers
                 return BadRequest(result);
             }
             
+            //fix. CreateAtAction return user
             return Ok(result);
         }
     }
