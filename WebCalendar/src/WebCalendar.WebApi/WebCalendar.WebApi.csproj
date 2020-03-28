@@ -21,9 +21,11 @@
         <Content Remove="$(SpaRoot)**" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Include="ClientApp\src\app\shared\interfaces.ts" />
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="ClientApp\src\app\login-page" />
       <Folder Include="Controllers" />
     </ItemGroup>
 
