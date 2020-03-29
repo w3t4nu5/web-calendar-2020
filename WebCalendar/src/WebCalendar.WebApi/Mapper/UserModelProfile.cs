@@ -8,7 +8,11 @@ namespace WebCalendar.WebApi.Mapper
     {
         public UserModelProfile()
         {
-            CreateMap<UserRegistrationRequestModel, UserRegisterServiceModel>();
+            CreateMap<UserRegisterRequestModel, UserRegisterServiceModel>();
+
+            CreateMap<UserAuthenticateRequestModel, UserAuthenticateServiceModel>();
+
+            CreateMap<UserTokenServiceModel, UserAuthenticateResponseModel>();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WebCalendar.WebApi.Models.User
 {
-    public class UserRegistrationRequestModel
+    public class UserRegisterRequestModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -15,7 +15,7 @@ namespace WebCalendar.Services.Contracts
         Task RemoveAsync(UserServiceModel entity);
 
         Task<IdentityResult> RegisterAsync(UserRegisterServiceModel userRegisterServiceModel);
-        Task<SignInResult> LoginAsync(UserLoginServiceModel userLoginServiceModel);
+        Task<UserTokenServiceModel> AuthenticateAsync(UserAuthenticateServiceModel userAuthenticateServiceModel);
         Task Logout();
     }
 }
