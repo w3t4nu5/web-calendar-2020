@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../shared/User";
 import {UserService} from "../shared/services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration-page',
@@ -13,7 +14,12 @@ export class RegistrationPageComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
 
-  constructor(private _formBuilder: FormBuilder, private _userService: UserService) { }
+  serverErrors = {
+    duplicateEmail: false
+  };
+
+  constructor(private _formBuilder: FormBuilder, private _router: Router, private _userService: UserService) {
+  }
 
   ngOnInit() {
     this.registerForm = this._formBuilder.group({
@@ -24,7 +30,18 @@ export class RegistrationPageComponent implements OnInit {
     });
   }
 
-  get f() { return this.registerForm.controls; }
+  get f() {
+    return this.registerForm.controls;
+  }
+
+  hasServerErrors(): boolean{
+    for(const key in this.serverErrors) {
+      if(this.serverErrors[key] == true) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -42,7 +59,15 @@ export class RegistrationPageComponent implements OnInit {
       password: this.registerForm.value.password
     }
 
-    this._userService.registerUser(user).subscribe(result => console.log(result));
+    this._userService.registerUser(user).subscribe(response => {
+        this._router.navigate(["/login"]);
+      },
+      response => {
+        console.log(response.error);
+        if(response.error.message.some(m => m.code == "DuplicateEmail")){
+          this.serverErrors.duplicateEmail = true;
+        }
+      });
   }
 
 }
