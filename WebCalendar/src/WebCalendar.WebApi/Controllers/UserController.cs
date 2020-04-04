@@ -12,8 +12,8 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 namespace WebCalendar.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -36,7 +36,11 @@ namespace WebCalendar.WebApi.Controllers
 
             if (!result.Succeeded)
             {
-                return BadRequest(new {message = result.Errors.Where(e => e.Code != "DuplicateUserName")});
+                return BadRequest(
+                    new
+                    {
+                        message = result.Errors.Where(e => e.Code != "DuplicateUserName")
+                    });
             }
             
             return Ok();
