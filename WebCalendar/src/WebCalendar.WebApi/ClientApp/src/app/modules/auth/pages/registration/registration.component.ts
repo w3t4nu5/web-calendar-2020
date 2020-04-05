@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../shared/services/user.service";
 import {Router} from "@angular/router";
-import {User} from "../shared/models/user";
+import {UserService} from "../../../../data/service/user.service";
+import {User} from "../../../../data/schema/user";
 
 @Component({
-  selector: 'app-registration-page',
-  templateUrl: './registration-page.component.html',
-  styleUrls: ['./registration-page.component.scss']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.scss']
 })
-export class RegistrationPageComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup;
   submitted = false;
@@ -18,7 +18,11 @@ export class RegistrationPageComponent implements OnInit {
     duplicateEmail: false
   };
 
-  constructor(private _formBuilder: FormBuilder, private _router: Router, private _userService: UserService) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _userService: UserService
+  ) {
   }
 
   ngOnInit() {

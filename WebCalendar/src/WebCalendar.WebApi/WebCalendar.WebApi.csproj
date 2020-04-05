@@ -43,6 +43,9 @@
 
     <ItemGroup>
       <Folder Include="ClientApp\src\app\calendar" />
+      <Folder Include="ClientApp\src\app\layout" />
+      <Folder Include="ClientApp\src\app\modules\auth\pages" />
+      <Folder Include="ClientApp\src\app\modules\home\pages" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

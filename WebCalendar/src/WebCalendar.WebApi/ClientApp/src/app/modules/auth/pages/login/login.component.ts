@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../shared/services/user.service";
-import {AuthenticationService} from "../shared/services/authentication.service";
 import {first} from "rxjs/operators";
-import {User} from "../shared/models/user";
+import {AuthenticationService} from "../../../../core/service/authentication.service";
+import {User} from "../../../../data/schema/user";
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
@@ -23,7 +22,7 @@ export class LoginPageComponent implements OnInit {
     private _route: ActivatedRoute,
     private _authenticationService: AuthenticationService) {
     if (this._authenticationService.currentUserValue) {
-      this._router.navigate(['/']);
+      this._router.navigate(['/calendar']);
     }
   }
 
