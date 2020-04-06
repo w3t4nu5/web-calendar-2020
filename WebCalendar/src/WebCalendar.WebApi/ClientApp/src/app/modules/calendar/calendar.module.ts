@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CalendarRoutingModule} from "./calendar-routing.module";
-import {CalendarComponent} from "./calendar/calendar.component";
+import {CalendarComponent} from "./pages/calendar/calendar.component";
+import {FullCalendarModule} from "@fullcalendar/angular";
 
 
 
@@ -11,7 +12,8 @@ import {CalendarComponent} from "./calendar/calendar.component";
   ],
   imports: [
     CommonModule,
-    CalendarRoutingModule
+    CalendarRoutingModule,
+    FullCalendarModule
   ]
 })
 export class CalendarModule { }

@@ -50,7 +50,7 @@ namespace WebCalendar.WebApi
                     options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
+                        ValidateIssuer = false,
                         ValidateAudience = false, //dev mod
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,

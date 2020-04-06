@@ -42,9 +42,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClientApp\src\app\calendar" />
       <Folder Include="ClientApp\src\app\layout" />
       <Folder Include="ClientApp\src\app\modules\auth\pages" />
+      <Folder Include="ClientApp\src\app\modules\calendar\pages" />
       <Folder Include="ClientApp\src\app\modules\home\pages" />
     </ItemGroup>
 
