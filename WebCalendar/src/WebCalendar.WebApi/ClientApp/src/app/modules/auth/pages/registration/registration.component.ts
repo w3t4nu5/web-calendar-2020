@@ -68,7 +68,7 @@ export class RegistrationComponent implements OnInit {
       },
       response => {
         console.log(response.error);
-        if(response.error.message.some(m => m.code == "DuplicateEmail")){
+        if(response?.error?.message?.some(m => m.code == "DuplicateEmail")){
           this.serverErrors.duplicateEmail = true;
         }
       });
