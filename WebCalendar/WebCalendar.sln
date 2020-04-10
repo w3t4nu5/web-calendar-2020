@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Services", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.WebApi", "src\WebCalendar.WebApi\WebCalendar.WebApi.csproj", "{974FC91E-E540-439D-A899-B992BFBB5B46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.Services.Sheduler", "WebCalendar.Services.Sheduler\WebCalendar.Services.Sheduler.csproj", "{7339CEB4-6C25-485A-A627-56E9925357A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{974FC91E-E540-439D-A899-B992BFBB5B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{974FC91E-E540-439D-A899-B992BFBB5B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{974FC91E-E540-439D-A899-B992BFBB5B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7339CEB4-6C25-485A-A627-56E9925357A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7339CEB4-6C25-485A-A627-56E9925357A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7339CEB4-6C25-485A-A627-56E9925357A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7339CEB4-6C25-485A-A627-56E9925357A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{2AD6B96F-F9A8-45CA-BCAE-F8C2B9C53CB9} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
 		{02544C5E-6730-4BFD-99DD-25FF66B55DFD} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
 		{974FC91E-E540-439D-A899-B992BFBB5B46} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+		{7339CEB4-6C25-485A-A627-56E9925357A7} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41FF8186-2245-46A0-9598-86DF678F0393}

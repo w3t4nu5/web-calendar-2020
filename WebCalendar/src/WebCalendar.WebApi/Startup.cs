@@ -10,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DependencyResolver;
 
@@ -27,6 +30,8 @@ namespace WebCalendar.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHostedService<QuartzHostedService>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",
@@ -69,6 +74,15 @@ namespace WebCalendar.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "WebCalendar API", Version = "v1"});
             });
+
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+
+            // Add our job
+            services.AddSingleton<HelloWorldJob>();
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(HelloWorldJob),
+                cronExpression: "0/5 * * * * ?")); // run every 5 seconds
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -127,6 +141,8 @@ namespace WebCalendar.WebApi
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(20000); // <-- add this line
+
                 }
             });
         }
