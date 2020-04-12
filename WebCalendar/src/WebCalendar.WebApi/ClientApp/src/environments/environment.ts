@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:44301/api'
+  apiUrl: 'https://localhost:44301/api',
+  notificationServerPublicKey: `BNBze8xU6bRaAT4er0hNq6XsOTeJkvn4bpOWOWw7FA2fvPVllM_uqwGMfqpcTfFZ4SE31lxC-sERwaEswNtJ4To`
 };
 
 /*

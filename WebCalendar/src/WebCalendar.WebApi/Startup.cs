@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DependencyResolver;
+using WebPush;
 
 namespace WebCalendar.WebApi
 {

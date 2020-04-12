@@ -34,7 +34,7 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let calendarApi = this.calendarComponent.getApi();
+    //let calendarApi = this.calendarComponent.getApi();
   }
 
   logout(){

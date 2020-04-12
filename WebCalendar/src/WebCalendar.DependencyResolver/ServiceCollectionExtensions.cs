@@ -16,6 +16,10 @@ using WebCalendar.Services.EmailSender;
 using WebCalendar.Services.EmailSender.Contracts;
 using WebCalendar.Services.EmailSender.Implementation;
 using WebCalendar.Services.Implementation;
+using WebCalendar.Services.PushNotification.Contracts;
+using WebCalendar.Services.PushNotification.Implementation;
+using WebPush;
+using VapidDetails = WebCalendar.Services.PushNotification.VapidDetails;
 
 namespace WebCalendar.DependencyResolver
 {
@@ -60,6 +64,15 @@ namespace WebCalendar.DependencyResolver
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton<IMapper, WebCalendarAutoMapper>();
+
+            services.AddScoped<WebPushClient>();
+            services.AddScoped<IPushNotificationService, PushNotificationService>();
+            
+            var vapidDetails = configuration
+                .GetSection("VapidDetails")
+                .Get<VapidDetails>();
+
+            services.AddSingleton(vapidDetails);
 
             services.AddScoped<IEmailSender, EmailSender>();
         }

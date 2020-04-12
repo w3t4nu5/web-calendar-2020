@@ -96,7 +96,7 @@ namespace WebCalendar.Services.Implementation
         public async Task UnshareToUser(Guid calendarId, Guid userId)
         {
             CalendarUser calendarUser = await _uow.GetRepository<CalendarUser>()
-                .GetFirstOrDefaultAsync(cu => cu.UserId == userId
+                .GetFirstOrDefaultAsync(predicate: cu => cu.UserId == userId
                                               && cu.CalendarId == calendarId);
             _uow.GetRepository<CalendarUser>().Remove(calendarUser);
 

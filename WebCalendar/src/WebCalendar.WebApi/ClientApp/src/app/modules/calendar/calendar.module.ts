@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import {CalendarRoutingModule} from "./calendar-routing.module";
 import {CalendarComponent} from "./pages/calendar/calendar.component";
 import {FullCalendarModule} from "@fullcalendar/angular";
+import {NotificationComponent} from "./components/notification/notification.component";
 
 
 
 @NgModule({
-  declarations: [
-    CalendarComponent
-  ],
+    declarations: [
+        CalendarComponent,
+        NotificationComponent
+    ],
   imports: [
     CommonModule,
     CalendarRoutingModule,
