@@ -30,6 +30,7 @@ namespace WebCalendar.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IQuartzService, QuartzHostedService>();
             services.AddHostedService<QuartzHostedService>();
 
             services.AddCors(options =>
@@ -80,9 +81,9 @@ namespace WebCalendar.WebApi
 
             // Add our job
             services.AddSingleton<HelloWorldJob>();
-            services.AddSingleton(new JobSchedule(
+          /*  services.AddSingleton(new JobSchedule(
                 jobType: typeof(HelloWorldJob),
-                cronExpression: "0/5 * * * * ?")); // run every 5 seconds
+                cronExpression: "0/5 * * * * ?")); */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
