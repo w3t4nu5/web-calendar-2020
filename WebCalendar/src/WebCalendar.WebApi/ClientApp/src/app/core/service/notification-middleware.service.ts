@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Subscription} from "../models/subscription";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,9 @@ export class NotificationMiddlewareService {
   private swRegistration = null;
   public notifications = [];
 
-  constructor(private http: HttpClient) { }
-
-  pushSubscription(subscription: Subscription){
-    console.log(subscription);
-    this.http.post<Subscription>(`${environment.apiUrl}/notification/subscribe`, subscription)
-      .subscribe(response => {
-        console.log(response);
-      })
-  }
+  constructor(
+    private http: HttpClient,
+    private authenticationService: AuthenticationService) { }
 
   init() {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -48,6 +43,20 @@ export class NotificationMiddlewareService {
       this.notifications.push(event.data);
     });
 
+  }
+
+
+  pushSubscription(subscription: Subscription){
+    console.log(subscription);
+    const currentUser = this.authenticationService.currentUserValue;
+    this.http.post<Subscription>(`${environment.apiUrl}/notification/subscribe/${currentUser.id}`, subscription)
+      .subscribe();
+  }
+
+  pushUnsubscribe(){
+    const currentUser = this.authenticationService.currentUserValue;
+    this.http.delete(`${environment.apiUrl}/notification/unsubscribe/${currentUser.id}`)
+      .subscribe();
   }
 
   checkSubscription() {
@@ -111,6 +120,8 @@ export class NotificationMiddlewareService {
         this.pushNotificationStatus.isSubscribed = false;
         this.pushNotificationStatus.isInProgress = false;
       });
+
+    this.pushUnsubscribe();
   }
 
   urlB64ToUint8Array(base64String) {

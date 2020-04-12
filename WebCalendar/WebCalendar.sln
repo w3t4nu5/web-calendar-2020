@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Web", "src\WebC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.WebApi", "src\WebCalendar.WebApi\WebCalendar.WebApi.csproj", "{974FC91E-E540-439D-A899-B992BFBB5B46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.Services.PushNotification", "src\WebCalendar.Services.PushNotification\WebCalendar.Services.PushNotification.csproj", "{BF362075-29C4-49BA-AD2C-5BA664A9DB72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{974FC91E-E540-439D-A899-B992BFBB5B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{974FC91E-E540-439D-A899-B992BFBB5B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{974FC91E-E540-439D-A899-B992BFBB5B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF362075-29C4-49BA-AD2C-5BA664A9DB72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF362075-29C4-49BA-AD2C-5BA664A9DB72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF362075-29C4-49BA-AD2C-5BA664A9DB72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF362075-29C4-49BA-AD2C-5BA664A9DB72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{02544C5E-6730-4BFD-99DD-25FF66B55DFD} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
 		{CE530050-9428-44B1-A96A-EBD44C98130D} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
 		{974FC91E-E540-439D-A899-B992BFBB5B46} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
+		{BF362075-29C4-49BA-AD2C-5BA664A9DB72} = {61D9B667-7A10-4E2C-9E3E-4613D47E9AE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41FF8186-2245-46A0-9598-86DF678F0393}

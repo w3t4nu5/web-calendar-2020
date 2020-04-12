@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {CalendarRoutingModule} from "./calendar-routing.module";
 import {CalendarComponent} from "./pages/calendar/calendar.component";
 import {FullCalendarModule} from "@fullcalendar/angular";
-import {NotificationComponent} from "../home/pages/notification/notification.component";
+import {NotificationComponent} from "./components/notification/notification.component";
 
 
 

@@ -18,6 +18,10 @@ namespace WebCalendar.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(builder =>
+                {
+                    builder.AddJsonFile("notification.secrets.json", optional: false, reloadOnChange: false);
+                })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

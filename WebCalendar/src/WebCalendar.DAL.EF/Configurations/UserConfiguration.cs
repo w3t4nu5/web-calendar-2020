@@ -21,6 +21,10 @@ namespace WebCalendar.DAL.EF.Configurations
             builder.HasMany(u => u.Calendars)
                 .WithOne(c => c.User)
                 .HasForeignKey(c => c.UserId);
+
+            builder.HasOne(u => u.PushSubscription)
+                .WithOne(p => p.User)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

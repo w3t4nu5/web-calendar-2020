@@ -25,6 +25,11 @@
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
         <None Remove="ClientApp\node_modules\**" />
         <Content Remove="ClientApp\node_modules\**" />
+        <Content Update="notification.secrets.json">
+          <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -44,6 +49,7 @@
     <ItemGroup>
       <Folder Include="ClientApp\src\app\layout" />
       <Folder Include="ClientApp\src\app\modules\auth\pages" />
+      <Folder Include="ClientApp\src\app\modules\calendar\components" />
       <Folder Include="ClientApp\src\app\modules\calendar\pages" />
       <Folder Include="ClientApp\src\app\modules\home\pages" />
     </ItemGroup>

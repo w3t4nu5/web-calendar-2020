@@ -36,9 +36,13 @@ namespace WebCalendar.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<UserServiceModel> GetByIdAsync(Guid id)
+        public async Task<UserServiceModel> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            User user = await _userManager.FindByIdAsync(id.ToString());
+
+            UserServiceModel userServiceModel = _mapper.Map<User, UserServiceModel>(user);
+
+            return userServiceModel;
         }
 
         public Task UpdateAsync(UserEditionServiceModel entity)
@@ -54,6 +58,17 @@ namespace WebCalendar.Services.Implementation
         public Task RemoveAsync(UserServiceModel entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<UserServiceModel> GetByPrincipalAsync(ClaimsPrincipal principal)
+        {
+            string userId = _userManager.GetUserId(principal);
+            
+            User user = await _userManager.FindByNameAsync(userId);
+
+            UserServiceModel userServiceModel = _mapper.Map<User, UserServiceModel>(user);
+
+            return userServiceModel;
         }
 
         public async Task<IdentityResult> RegisterAsync(UserRegisterServiceModel userRegisterServiceModel)
@@ -76,22 +91,27 @@ namespace WebCalendar.Services.Implementation
                 false
             );
 
-            string token = GenerateJsonWebToken(user.Id);
+            string token = GenerateJsonWebToken(user);
             userTokenServiceModel.Token = token;
             
             return userTokenServiceModel;
         }
         
-        private string GenerateJsonWebToken(Guid userId)
+        private string GenerateJsonWebToken(User user)
         {  
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));  
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);  
   
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],  
+            var token = new JwtSecurityToken(
+                _config["Jwt:Issuer"],  
                 _config["Jwt:Audience"],  
                 new Claim[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()) 
+                    new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
+                    new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
+                    new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName), 
                 },  
                 expires: DateTime.Now.AddMinutes(Double.Parse(_config["Jwt:Lifetime"])),  
                 signingCredentials: credentials);  
