@@ -15,7 +15,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.3" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.2.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -26,6 +26,10 @@
         <None Remove="ClientApp\node_modules\**" />
         <Content Remove="ClientApp\node_modules\**" />
         <Content Update="notification.secrets.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
         <Content Update="smtpsettings.secrets.json">
           <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
