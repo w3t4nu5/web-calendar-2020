@@ -26,6 +26,7 @@
         <None Remove="ClientApp\node_modules\**" />
         <Content Remove="ClientApp\node_modules\**" />
         <Content Update="notification.secrets.json">
+        <Content Update="smtpsettings.secrets.json">
           <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

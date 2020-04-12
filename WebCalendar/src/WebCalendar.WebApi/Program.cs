@@ -21,7 +21,11 @@ namespace WebCalendar.WebApi
                 .ConfigureAppConfiguration(builder =>
                 {
                     builder.AddJsonFile("notification.secrets.json", optional: false, reloadOnChange: false);
+                    builder.AddJsonFile("smtpsettings.secrets.json", true, false);
                 })
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }
