@@ -12,6 +12,9 @@ using WebCalendar.DAL.Models.Entities;
 using WebCalendar.DAL.Repositories.Contracts;
 using WebCalendar.DAL.Repositories.Implementation;
 using WebCalendar.Services.Contracts;
+using WebCalendar.Services.EmailSender;
+using WebCalendar.Services.EmailSender.Contracts;
+using WebCalendar.Services.EmailSender.Implementation;
 using WebCalendar.Services.Implementation;
 
 namespace WebCalendar.DependencyResolver
@@ -20,6 +23,11 @@ namespace WebCalendar.DependencyResolver
     {
         public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+            var emailConfig = configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+            
             string connection = configuration["ConnectionString"];
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -52,6 +60,8 @@ namespace WebCalendar.DependencyResolver
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton<IMapper, WebCalendarAutoMapper>();
+
+            services.AddScoped<IEmailSender, EmailSender>();
         }
     }
 }

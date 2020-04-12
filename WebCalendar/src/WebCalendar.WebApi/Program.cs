@@ -18,6 +18,14 @@ namespace WebCalendar.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureAppConfiguration((context, builder) =>
+                {
+                    builder.AddJsonFile("smtpsettings.secrets.json", true, false);
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>(); 
+                    
+                });
     }
 }
