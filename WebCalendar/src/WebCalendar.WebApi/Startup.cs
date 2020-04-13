@@ -33,8 +33,11 @@ namespace WebCalendar.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.AddSingleton<IQuartzService, QuartzHostedService>();
+            // services.AddHostedService<QuartzHostedService>();
+
             services.AddSingleton<IQuartzService, QuartzHostedService>();
-            services.AddHostedService<QuartzHostedService>();
+            services.AddHostedService(sp => sp.GetRequiredService<IQuartzService>());
 
             services.AddScoped<ISchedulerService<SchedulerTask>, SchedulerService>();
             services.AddCors(options =>
@@ -50,7 +53,7 @@ namespace WebCalendar.WebApi
 
             services.AddControllers();
             
-            services.AddAuthentication(options =>
+   /*         services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -72,7 +75,7 @@ namespace WebCalendar.WebApi
             
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
-
+            */
             services.RegisterDependencies(Configuration);
 
             services.AddSwaggerGen(c =>
@@ -119,8 +122,8 @@ namespace WebCalendar.WebApi
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+         //   app.UseAuthentication();
+         //   app.UseAuthorization();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

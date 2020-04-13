@@ -10,11 +10,11 @@ using WebCalendar.DAL;
 using WebCalendar.DAL.Models.Entities;
 using Task = System.Threading.Tasks.Task;
 
-public interface IQuartzService 
+public interface IQuartzService : IHostedService
 {
     IScheduler Scheduler { get; set; }
 }
-public class QuartzHostedService : IQuartzService, IHostedService
+public class QuartzHostedService : IQuartzService
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly ISchedulerFactory _schedulerFactory;
