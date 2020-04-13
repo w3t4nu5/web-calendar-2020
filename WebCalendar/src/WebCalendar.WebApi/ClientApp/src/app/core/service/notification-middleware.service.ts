@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Subscription} from "../models/subscription";
 import {AuthenticationService} from "./authentication.service";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotificationMiddlewareService {
+export class NotificationMiddlewareService implements OnInit{
 
   public pushNotificationStatus = {
     isSubscribed: false,
@@ -20,6 +21,23 @@ export class NotificationMiddlewareService {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService) { }
+
+  ngOnInit(): void {
+    this.isSubscribed()
+      .subscribe(isSubscribed => {
+        this.pushNotificationStatus.isSubscribed = isSubscribed;
+      });
+  }
+
+  isSubscribed(): Observable<boolean> {
+    const currentUser = this.authenticationService.currentUserValue;
+    return this.http.get<boolean>(`${environment.apiUrl}/notification/isSubscribed/${currentUser.id}`);
+  }
+
+  isSubscribeInit(): Observable<boolean> {
+    const currentUser = this.authenticationService.currentUserValue;
+    return this.http.get<boolean>(`${environment.apiUrl}/notification/isSubscribeInit/${currentUser.id}`);
+  }
 
   init() {
     if ('serviceWorker' in navigator && 'PushManager' in window) {

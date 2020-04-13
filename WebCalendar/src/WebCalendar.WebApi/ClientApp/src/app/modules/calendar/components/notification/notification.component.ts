@@ -8,7 +8,7 @@ import {NotificationMiddlewareService} from "../../../../core/service/notificati
 })
 export class NotificationComponent implements OnInit {
 
-  constructor(public notificationMiddleware: NotificationMiddlewareService) { }
+  constructor(private notificationMiddleware: NotificationMiddlewareService) { }
 
   ngOnInit(): void {
   }

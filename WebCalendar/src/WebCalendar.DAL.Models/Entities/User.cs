@@ -15,7 +15,7 @@ namespace WebCalendar.DAL.Models.Entities
         
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsSubscribedToNativeNotifications { get; set; } = true;
+        
         public bool IsSubscribedToEmailNotifications { get; set; }
         public bool IsDeleted { get; set; }
 
@@ -25,6 +25,7 @@ namespace WebCalendar.DAL.Models.Entities
 
         public Guid? PushSubscriptionId { get; set; }
         public PushSubscription PushSubscription { get; set; }
+        public bool IsSubscribedToPushNotifications { get; set; } = true;
 
         public DateTime AddedDate { get; set; }
         public DateTime ModifiedDate { get; set; }

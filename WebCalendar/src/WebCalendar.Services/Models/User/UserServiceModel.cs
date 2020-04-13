@@ -10,7 +10,7 @@ namespace WebCalendar.Services.Models.User
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsSubscribedToNativeNotifications { get; set; } = true;
+        public bool IsSubscribedToPushNotifications { get; set; }
         public bool IsSubscribedToEmailNotifications { get; set; }
 
         public ICollection<CalendarServiceModel> SharedCalendars { get; set; }

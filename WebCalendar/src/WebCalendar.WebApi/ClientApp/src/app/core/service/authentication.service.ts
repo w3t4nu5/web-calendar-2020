@@ -19,13 +19,13 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(email: string, password: string){
+  login(email: string, password: string) : Observable<User>{
     return this.http.post<any>(`${environment.apiUrl}/user/authenticate`, {email, password})
       .pipe(map(user => {
         localStorage.setItem("currentUser", JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
-      }))
+      }));
   }
 
   logout() {

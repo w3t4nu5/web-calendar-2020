@@ -9,13 +9,17 @@ import {HomeLayoutComponent} from "./layout/home-layout/home-layout.component";
 import {UserService} from "./data/service/user.service";
 import {JwtInterceptor} from "./core/interceptor/jwt.interceptor";
 import {ErrorInterceptor} from "./core/interceptor/error.interceptor";
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeLayoutComponent
+    HomeLayoutComponent,
+    MainLayoutComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

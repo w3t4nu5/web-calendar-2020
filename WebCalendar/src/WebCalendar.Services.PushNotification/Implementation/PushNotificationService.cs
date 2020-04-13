@@ -52,6 +52,7 @@ namespace WebCalendar.Services.PushNotification.Implementation
             PushSubscription pushSubscription = _mapper.Map<PushSubscriptionServiceModel, PushSubscription>(pushSubscriptionServiceModel);
 
             user.PushSubscription = pushSubscription;
+            user.IsSubscribedToPushNotifications = true;
 
             _uow.GetRepository<User>().Update(user);
             await _uow.SaveChangesAsync();
@@ -62,14 +63,32 @@ namespace WebCalendar.Services.PushNotification.Implementation
             User user = await _uow.GetRepository<User>().GetFirstOrDefaultAsync(
                 predicate: u => u.Id == userId,
                 include: query => 
-                    query.Include(u => u.PushSubscription));
+                    query.Include(u => u.PushSubscription),
+                disableTracking: false);
+
+            user.IsSubscribedToPushNotifications = false;
+            _uow.GetRepository<User>().Update(user);
             
-            _uow.GetRepository<PushSubscription>().Remove(new PushSubscription
-            {
-                Id = user.PushSubscription.Id
-            });
+            _uow.GetRepository<PushSubscription>().Remove(user.PushSubscription);
             
             await _uow.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsSubscribedAsync(Guid userId)
+        {
+            bool isSubscribed = await _uow.GetRepository<User>().GetFirstOrDefaultAsync(
+                selector: u => u.IsSubscribedToPushNotifications,
+                predicate: u => u.Id == userId);
+
+            return isSubscribed;
+        }
+
+        public async Task<bool> IsSubscribeInitAsync(Guid userId)
+        {
+            User user = await _uow.GetRepository<User>().GetByIdAsync(userId);
+
+            return (user.IsSubscribedToPushNotifications && user.PushSubscriptionId != null)
+                || !user.IsSubscribedToPushNotifications;
         }
     }
 }
