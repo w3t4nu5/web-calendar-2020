@@ -12,7 +12,5 @@ namespace WebCalendar.Services.Sheduler.Models
         public string Description { get; set; }
         public DateTime StartTime { get; set; }
         public bool IsDone { get; set; }
-
-        public ICollection<User> Users { get; set; }
     }
 }

@@ -80,7 +80,7 @@ public class QuartzHostedService : IQuartzService, IHostedService
 
     public async Task ScheduleReminderAsync(CancellationToken cancellationToken)
     {
-        IJobDetail job = JobBuilder.Create<HelloWorldJob>()
+        /*IJobDetail job = JobBuilder.Create<HelloWorldJob>()
                 .WithIdentity(Guid.NewGuid().ToString())
                 .UsingJobData(HelloWorldJob.JobDataKey, "Aniki")
                 .Build();
@@ -94,6 +94,6 @@ public class QuartzHostedService : IQuartzService, IHostedService
                     .RepeatForever())
             .Build();
 
-        await Scheduler.ScheduleJob(job, trigger, cancellationToken);
+        await Scheduler.ScheduleJob(job, trigger, cancellationToken);*/
     }
 }

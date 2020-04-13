@@ -5,6 +5,8 @@ using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
 using WebCalendar.Services.Contracts;
 using WebCalendar.Services.Models.Task;
+using WebCalendar.Services.Sheduler;
+using WebCalendar.Services.Sheduler.Models;
 
 namespace WebCalendar.Services.Implementation
 {
@@ -12,17 +14,22 @@ namespace WebCalendar.Services.Implementation
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
+        private readonly ISchedulerService<SchedulerTask> _schedulerService;
 
-        public TaskService(IUnitOfWork uow, IMapper mapper)
+        public TaskService(IUnitOfWork uow, IMapper mapper, ISchedulerService<SchedulerTask> schedulerService)
         {
             _uow = uow;
             _mapper = mapper;
+            _schedulerService = schedulerService;
         }
 
         public async Task AddAsync(TaskCreationServiceModel entity)
         {
             DAL.Models.Entities.Task task = _mapper.Map<TaskCreationServiceModel, DAL.Models.Entities.Task>(entity);
             await _uow.GetRepository<DAL.Models.Entities.Task>().AddAsync(task);
+
+            SchedulerTask schedulerTask = _mapper.Map<DAL.Models.Entities.Task, SchedulerTask>(task);
+            await _schedulerService.Schedule(schedulerTask);
 
             await _uow.SaveChangesAsync();
         }

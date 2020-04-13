@@ -22,7 +22,7 @@ namespace WebCalendar.DAL.Models.Entities
         public DateTime EndTime { get; set; }
         public TimeSpan? RepetitionInterval { get; set; }
         public TimeSpan? NotifyBeforeInterval { get; set; }
-        public int? RepetitionsCount { get; set; }
+        public int RepetitionsCount { get; set; }
         public DateTime? RepetitionsEndTime { get; set; }
 
         public Guid CalendarId { get; set; }

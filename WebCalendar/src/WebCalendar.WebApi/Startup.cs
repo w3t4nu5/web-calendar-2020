@@ -14,7 +14,10 @@ using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
 using WebCalendar.Common.Contracts;
+using WebCalendar.DAL.Models.Entities;
 using WebCalendar.DependencyResolver;
+using WebCalendar.Services.Sheduler;
+using WebCalendar.Services.Sheduler.Models;
 
 namespace WebCalendar.WebApi
 {
@@ -33,6 +36,7 @@ namespace WebCalendar.WebApi
             services.AddSingleton<IQuartzService, QuartzHostedService>();
             services.AddHostedService<QuartzHostedService>();
 
+            services.AddScoped<ISchedulerService<SchedulerTask>, SchedulerService>();
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",

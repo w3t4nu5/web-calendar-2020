@@ -1,6 +1,7 @@
 ﻿using WebCalendar.Common;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.Services.Models.Task;
+using WebCalendar.Services.Sheduler.Models;
 
 namespace WebCalendar.Services.Mapper
 {
@@ -15,6 +16,8 @@ namespace WebCalendar.Services.Mapper
             CreateMap<Task, TaskServiceModel>();
 
             CreateMap<TaskServiceModel, Task>();
+
+            CreateMap<Task, SchedulerTask>();
         }
     }
 }
