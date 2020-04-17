@@ -18,8 +18,4 @@
     <ProjectReference Include="..\src\WebCalendar.DAL\WebCalendar.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
 </Project>

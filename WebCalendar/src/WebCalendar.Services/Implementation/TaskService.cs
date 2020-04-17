@@ -14,21 +14,24 @@ namespace WebCalendar.Services.Implementation
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
+        private readonly ISchedulerService _schedulerService;
 
-        public TaskService(IUnitOfWork uow, IMapper mapper)
+        public TaskService(IUnitOfWork uow, IMapper mapper, ISchedulerService schedulerService)
         {
             _uow = uow;
             _mapper = mapper;
+            _schedulerService = schedulerService;
         }
 
         public async Task AddAsync(TaskCreationServiceModel entity)
         {
             DAL.Models.Entities.Task task = _mapper.Map<TaskCreationServiceModel, DAL.Models.Entities.Task>(entity);
-            await _uow.GetRepository<DAL.Models.Entities.Task>().AddAsync(task);
-
-            SchedulerTask schedulerTask = _mapper.Map<DAL.Models.Entities.Task, SchedulerTask>(task);
-
+            Guid id = (await _uow.GetRepository<DAL.Models.Entities.Task>().AddAsync(task)).Id;
+    
             await _uow.SaveChangesAsync();
+            var df = await _uow.GetRepository<DAL.Models.Entities.Task>().GetByIdAsync(id, include: );
+            SchedulerTask schedulerTask = _mapper.Map<DAL.Models.Entities.Task, SchedulerTask>(df);
+            await _schedulerService.ScheduleTaskAsync(schedulerTask);
         }
 
         public async Task<IEnumerable<TaskServiceModel>> GetAllAsync()

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 public class HelloWorldJob : IJob
 {
     private readonly ILogger<HelloWorldJob> _logger;
-    public static readonly string JobDataKey = "key";
-    public static readonly string JobActivityTypeKey = "key";
+    public static readonly string JobDataKey = "key1";
+    public static readonly string JobActivityTypeKey = "key2";
 
     public HelloWorldJob(ILogger<HelloWorldJob> logger)
     {
@@ -20,7 +20,7 @@ public class HelloWorldJob : IJob
         JobDataMap jobDataMap = context.JobDetail.JobDataMap;
 
         string value = jobDataMap.GetString(JobDataKey);
-        _logger.LogInformation(value + " Billy Herrington");
+        _logger.LogInformation(value);
         return Task.CompletedTask;
     }
 }

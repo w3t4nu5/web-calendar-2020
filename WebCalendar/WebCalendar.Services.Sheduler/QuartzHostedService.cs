@@ -14,10 +14,10 @@ using WebCalendar.DAL;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.DAL.Repositories.Contracts;
 using WebCalendar.Common.Contracts;
+using WebCalendar.Services.Sheduler.Contracts;
 
-public interface IQuartzService : IHostedService
+public interface ISchedulerService : IHostedService
 {
-    IScheduler Scheduler { get; set; }
     Task ScheduleTaskAsync(SchedulerTask task);
     Task RescheduleTaskAsync(SchedulerTask task);
     Task UnscheduleTaskAsync(SchedulerTask task);
@@ -28,12 +28,13 @@ public interface IQuartzService : IHostedService
     Task RescheduleReminderAsync(SchedulerReminder reminder);
     Task UnscheduleReminderAsync(SchedulerReminder reminder);
 }
-public class QuartzHostedService : IQuartzService
+public class QuartzHostedService : ISchedulerService
 {
     private readonly ISchedulerFactory _schedulerFactory;
     private readonly IJobFactory _jobFactory;
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly IMapper _mapper;
+    private IScheduler _scheduler;
 
     public QuartzHostedService(
         ISchedulerFactory schedulerFactory,
@@ -46,165 +47,87 @@ public class QuartzHostedService : IQuartzService
         _scopeFactory = scopeFactory;
         _mapper = mapper;
     }
-    public IScheduler Scheduler { get; set; }
 
     async Task IHostedService.StartAsync(CancellationToken cancellationToken)
     {
-        Scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
-        Scheduler.JobFactory = _jobFactory;
+        _scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
+        _scheduler.JobFactory = _jobFactory;
 
-        await Scheduler.Start(cancellationToken);
+        await _scheduler.Start(cancellationToken);
 
-    /*    using (var scope = _scopeFactory.CreateScope())
-        {
-            var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+        //using (var scope = _scopeFactory.CreateScope())
+        //{
+        //    var dataLoader = scope.ServiceProvider.GetRequiredService<ISchedulerDataLoader>();
 
-            await ScheduleTasksFromDb(uow);
-            await ScheduleEventsFromDb(uow);
-            await ScheduleRemindersFromDb(uow);
-        }*/
+        //    IEnumerable<SchedulerEvent> @events = await dataLoader.GetSchedulerEvents();
+        //    IEnumerable<SchedulerReminder> reminders = await dataLoader.GetSchedulerReminders();
+        //    IEnumerable<SchedulerTask> tasks = await dataLoader.GetSchedulerTasks();
+
+        //    foreach (var @event in @events)
+        //    {
+        //        await _scheduler.ScheduleEvent(@event);
+        //    }
+
+        //    foreach (var reminder in reminders)
+        //    {
+        //        await _scheduler.ScheduleReminder(reminder);
+        //    }
+
+        //    foreach (var task in tasks)
+        //    {
+        //        await _scheduler.ScheduleTask(task);
+        //    }
+        //}
     }
 
     async Task IHostedService.StopAsync(CancellationToken cancellationToken)
     {
-        await Scheduler?.Shutdown(cancellationToken);
+        await _scheduler?.Shutdown(cancellationToken);
     }
 
     public async Task ScheduleTaskAsync(SchedulerTask task)
     {
-        JobKey jobKey = new JobKey(task.Id.ToString(), ConstantsStorage.TASK_GROUP);
-        TriggerKey triggerKey = new TriggerKey(task.Id.ToString(), ConstantsStorage.TASK_GROUP);
-
-        IJobDetail job = JobBuilder.Create<HelloWorldJob>()
-            .WithIdentity(jobKey)
-            .UsingJobData(HelloWorldJob.JobDataKey, JsonConvert.SerializeObject(task))
-            .UsingJobData(HelloWorldJob.JobActivityTypeKey, ConstantsStorage.TASK)
-            .Build();
-
-        ITrigger trigger = TriggerBuilder.Create()
-            .WithIdentity(triggerKey)
-            .StartAt(task.StartTime)
-            .Build();
-
-        await Scheduler.ScheduleJob(job, trigger);
+        await _scheduler.ScheduleTask(task);
     }
 
     public async Task RescheduleTaskAsync(SchedulerTask task)
     {
-        await UnscheduleTaskAsync(task);
-        await ScheduleTaskAsync(task);
+        await _scheduler.RescheduleTask(task);
     }
 
     public async Task UnscheduleTaskAsync(SchedulerTask task)
     {
-        JobKey jobKey = new JobKey(task.Id.ToString(), ConstantsStorage.TASK_GROUP);
-
-        await Scheduler.DeleteJob(jobKey);
+        await _scheduler.UnscheduleTask(task);
     }
 
     public async Task ScheduleEventAsync(SchedulerEvent @event)
     {
-        if (@event.NotifyBeforeInterval != null)
-        {
-            await ScheduleAdvanceEventAsync(@event);
-        }
-
-        JobKey jobKey = new JobKey(@event.Id.ToString(), ConstantsStorage.EVENT_GROUP);
-        TriggerKey triggerKey = new TriggerKey(@event.Id.ToString(), ConstantsStorage.EVENT_GROUP);
-
-        IJobDetail job = JobBuilder.Create<HelloWorldJob>()
-            .WithIdentity(jobKey)
-            .UsingJobData(HelloWorldJob.JobDataKey, JsonConvert.SerializeObject(@event))
-            .UsingJobData(HelloWorldJob.JobActivityTypeKey, ConstantsStorage.EVENT)
-            .Build();
-
-        ITrigger trigger = TriggerBuilder.Create()
-            .WithIdentity(triggerKey)
-            .StartAt(@event.StartTime)
-            .WithCronSchedule(@event.CronExpression)
-            .EndAt(@event.EndTime)
-            .Build();
-
-        await Scheduler.ScheduleJob(job, trigger);
+        await _scheduler.ScheduleEvent(@event);
     }
 
     public async Task RescheduleEventAsync(SchedulerEvent @event)
     {
-        await UnscheduleEventAsync(@event);
-        await ScheduleEventAsync(@event);
+        await _scheduler.RescheduleEvent(@event);
     }
 
     public async Task UnscheduleEventAsync(SchedulerEvent @event)
     {
-        JobKey jobKey = new JobKey(@event.Id.ToString(), ConstantsStorage.EVENT_GROUP);
-
-        if (@event.NotifyBeforeInterval != null)
-        {
-            await UnscheduleAdvanceEventAsync(@event);
-        }
-
-        await Scheduler.DeleteJob(jobKey);
+        await _scheduler.UnscheduleEvent(@event);
     }
 
     public async Task ScheduleReminderAsync(SchedulerReminder reminder)
     {
-        JobKey jobKey = new JobKey(reminder.Id.ToString(), ConstantsStorage.REMINDER_GROUP);
-        TriggerKey triggerKey = new TriggerKey(reminder.Id.ToString(), ConstantsStorage.REMINDER_GROUP);
-
-        IJobDetail job = JobBuilder.Create<HelloWorldJob>()
-            .WithIdentity(jobKey)
-            .UsingJobData(HelloWorldJob.JobDataKey, JsonConvert.SerializeObject(reminder))
-            .UsingJobData(HelloWorldJob.JobActivityTypeKey, ConstantsStorage.REMINDER)
-            .Build();
-
-        ITrigger trigger = TriggerBuilder.Create()
-            .WithIdentity(triggerKey)
-            .StartAt(reminder.StartTime)
-            .WithCronSchedule(reminder.CronExpression)
-            .EndAt(reminder.EndTime)
-            .Build();
-
-        await Scheduler.ScheduleJob(job, trigger);
+        await _scheduler.ScheduleReminder(reminder);
     }
 
     public async Task RescheduleReminderAsync(SchedulerReminder reminder)
     {
-        await UnscheduleReminderAsync(reminder);
-        await ScheduleReminderAsync(reminder);
+        await _scheduler.RescheduleReminder(reminder);
     }
 
     public async Task UnscheduleReminderAsync(SchedulerReminder reminder)
     {
-        JobKey jobKey = new JobKey(reminder.Id.ToString(), ConstantsStorage.REMINDER_GROUP);
-
-        await Scheduler.DeleteJob(jobKey);
-    }
-
-    private async Task ScheduleAdvanceEventAsync(SchedulerEvent @event)
-    {
-        JobKey jobKey = new JobKey(@event.Id.ToString(), ConstantsStorage.ADVANCE_EVENT_GROUP);
-        TriggerKey triggerKey = new TriggerKey(@event.Id.ToString(), ConstantsStorage.EVENT_GROUP);
-        DateTime startTime = new DateTime(@event.StartTime.Ticks - @event.NotifyBeforeInterval.Value.Ticks);
-
-        IJobDetail job = JobBuilder.Create<HelloWorldJob>()
-            .WithIdentity(jobKey)
-            .UsingJobData(HelloWorldJob.JobDataKey, JsonConvert.SerializeObject(@event))
-            .UsingJobData(HelloWorldJob.JobActivityTypeKey, ConstantsStorage.ADVANCE_EVENT)
-            .Build();
-
-        ITrigger trigger = TriggerBuilder.Create()
-            .WithIdentity(triggerKey)
-            .StartAt(startTime)
-            .Build();
-
-        await Scheduler.ScheduleJob(job, trigger);
-    }
-
-    private async Task UnscheduleAdvanceEventAsync(SchedulerEvent @event)
-    {
-        JobKey jobKey = new JobKey(@event.Id.ToString(), ConstantsStorage.ADVANCE_EVENT_GROUP);
-
-        await Scheduler.DeleteJob(jobKey);
+        await _scheduler.UnscheduleReminder(reminder);
     }
 
     private async Task ScheduleTasksFromDb(IUnitOfWork unitOfWork)
@@ -216,28 +139,6 @@ public class QuartzHostedService : IQuartzService
         {
             var schedulerTask = _mapper.Map<WebCalendar.DAL.Models.Entities.Task, SchedulerTask>(task);
             await ScheduleTaskAsync(schedulerTask);
-        }
-    }
-    private async Task ScheduleEventsFromDb(IUnitOfWork unitOfWork)
-    {
-        var repository = unitOfWork.GetRepository<Event>();
-        var events = await repository.GetAllAsync();
-
-        foreach (var @event in events)
-        {
-            var schedulerEvent = _mapper.Map<Event, SchedulerEvent>(@event);
-            await ScheduleEventAsync(schedulerEvent);
-        }
-    }
-    private async Task ScheduleRemindersFromDb(IUnitOfWork unitOfWork)
-    {
-        var repository = unitOfWork.GetRepository<Reminder>();
-        var reminders = await repository.GetAllAsync();
-
-        foreach (var reminder in reminders)
-        {
-            var schedulerReminder = _mapper.Map<Reminder, SchedulerReminder>(reminder);
-            await ScheduleReminderAsync(schedulerReminder);
         }
     }
 }
