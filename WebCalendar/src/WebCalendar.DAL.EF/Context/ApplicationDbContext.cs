@@ -28,11 +28,8 @@ namespace WebCalendar.DAL.EF.Context
         public DbSet<Event> Events { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Reminder> Reminders { get; set; }
-        public DbSet<Day> Days { get; set; }
         public DbSet<CalendarUser> CalendarUsers { get; set; }
         public DbSet<UserEvent> UserEvents { get; set; }
-        public DbSet<EventDay> EventDays { get; set; }
-        public DbSet<ReminderDay> ReminderDays { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -51,11 +48,8 @@ namespace WebCalendar.DAL.EF.Context
                 .ApplyConfiguration<Event>(new EventConfiguration())
                 .ApplyConfiguration<Task>(new TaskConfiguration())
                 .ApplyConfiguration<Reminder>(new ReminderConfiguration())
-                .ApplyConfiguration<Day>(new DayConfiguration())
                 .ApplyConfiguration<CalendarUser>(new CalendarUserConfiguration())
-                .ApplyConfiguration<UserEvent>(new UserEventConfiguration())
-                .ApplyConfiguration<EventDay>(new EventDayConfiguration())
-                .ApplyConfiguration<ReminderDay>(new ReminderDayConfiguration());
+                .ApplyConfiguration<UserEvent>(new UserEventConfiguration());
         }
         
         public override int SaveChanges()

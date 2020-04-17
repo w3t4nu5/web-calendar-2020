@@ -39,7 +39,6 @@ namespace WebCalendar.WebApi
             services.AddSingleton<IQuartzService, QuartzHostedService>();
             services.AddHostedService(sp => sp.GetRequiredService<IQuartzService>());
 
-            services.AddScoped<ISchedulerService<SchedulerTask>, SchedulerService>();
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",

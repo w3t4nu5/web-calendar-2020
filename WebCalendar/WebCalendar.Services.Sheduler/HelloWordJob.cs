@@ -8,6 +8,7 @@ public class HelloWorldJob : IJob
 {
     private readonly ILogger<HelloWorldJob> _logger;
     public static readonly string JobDataKey = "key";
+    public static readonly string JobActivityTypeKey = "key";
 
     public HelloWorldJob(ILogger<HelloWorldJob> logger)
     {
