@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using WebCalendar.Common;
 using WebCalendar.DAL.Models.Entities;
-using WebCalendar.Services.Sheduler.Contracts;
-using WebCalendar.Services.Sheduler.Models;
+using WebCalendar.Services.Scheduler.Contracts;
+using WebCalendar.Services.Scheduler.Models;
 
-namespace WebCalendar.Services.Sheduler.Mapper
+namespace WebCalendar.Services.Scheduler.Mapper
 {
     class SchedulerTaskProfile : AutoMapperProfile
     {

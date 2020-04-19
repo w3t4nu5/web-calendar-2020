@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Services", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.WebApi", "src\WebCalendar.WebApi\WebCalendar.WebApi.csproj", "{974FC91E-E540-439D-A899-B992BFBB5B46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalendar.Services.Sheduler", "WebCalendar.Services.Sheduler\WebCalendar.Services.Sheduler.csproj", "{7339CEB4-6C25-485A-A627-56E9925357A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCalendar.Services.Scheduler", "WebCalendar.Services.Sheduler\WebCalendar.Services.Scheduler.csproj", "{7339CEB4-6C25-485A-A627-56E9925357A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

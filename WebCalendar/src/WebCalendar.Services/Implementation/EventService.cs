@@ -6,6 +6,8 @@ using WebCalendar.DAL;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.Services.Contracts;
 using WebCalendar.Services.Models.Event;
+using WebCalendar.Services.Scheduler.Contracts;
+using WebCalendar.Services.Scheduler.Models;
 using Task = System.Threading.Tasks.Task;
 
 namespace WebCalendar.Services.Implementation
@@ -14,19 +16,21 @@ namespace WebCalendar.Services.Implementation
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
-
-        public EventService(IUnitOfWork uow, IMapper mapper)
+        private readonly ISchedulerService _schedulerService;
+        public EventService(IUnitOfWork uow, IMapper mapper, ISchedulerService schedulerService)
         {
             _uow = uow;
             _mapper = mapper;
+            _schedulerService = schedulerService;
         }
 
         public async Task AddAsync(EventCreationServiceModel entity)
         {
             Event @event = _mapper.Map<EventCreationServiceModel, Event>(entity);
-            await _uow.GetRepository<Event>().AddAsync(@event);
-
+            Guid id = (await _uow.GetRepository<Event>().AddAsync(@event)).Id;
             await _uow.SaveChangesAsync();
+
+            await _schedulerService.ScheduleEventById(id);
         }
 
         public async Task<IEnumerable<EventServiceModel>> GetAllAsync()
@@ -57,6 +61,8 @@ namespace WebCalendar.Services.Implementation
                 .Map<Event, EventServiceModel>(@event);
 
             await RemoveAsync(eventServiceModel);
+
+            await _schedulerService.UnscheduleEventById(id);
         }
 
         public async Task RemoveAsync(EventServiceModel entity)
@@ -75,6 +81,8 @@ namespace WebCalendar.Services.Implementation
             _uow.GetRepository<Event>().Update(@event);
 
             await _uow.SaveChangesAsync();
+
+            await _schedulerService.RescheduleEventById(entity.Id);
         }
     }
 }

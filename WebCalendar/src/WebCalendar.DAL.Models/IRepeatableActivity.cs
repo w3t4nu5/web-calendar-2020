@@ -7,7 +7,6 @@ namespace WebCalendar.DAL.Models
     public interface IRepeatableActivity : IActivity
     {
         public DateTime EndTime { get; set; }
-        public TimeSpan NotifyAt { get; set; }
         public int? RepetitionsCount { get; set; }
 
         public ICollection<int> DaysOfWeek { get; set; }

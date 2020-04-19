@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\WebCalendar.Services.Sheduler\WebCalendar.Services.Sheduler.csproj" />
+      <ProjectReference Include="..\..\WebCalendar.Services.Sheduler\WebCalendar.Services.Scheduler.csproj" />
       <ProjectReference Include="..\WebCalendar.Common\WebCalendar.Common.csproj" />
       <ProjectReference Include="..\WebCalendar.DAL.Models\WebCalendar.DAL.Models.csproj" />
       <ProjectReference Include="..\WebCalendar.DAL\WebCalendar.DAL.csproj" />

@@ -5,7 +5,7 @@ using WebCalendar.Services.Models.User;
 
 namespace WebCalendar.Services.Models.Event
 {
-    public class EventCreationServiceModel : IRepeatableActivity
+    public class EventCreationServiceModel 
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -16,7 +16,7 @@ namespace WebCalendar.Services.Models.Event
 
         public Guid CalendarId { get; set; }
         public ICollection<UserSummaryModel> SubscribedUsers { get; set; }
-        public TimeSpan NotifyAt { get; set; }
+        //public TimeSpan NotifyAt { get; set; }
         public ICollection<int> DaysOfWeek { get; set; }
         public ICollection<int> DaysOfMounth { get; set; }
         public ICollection<int> Monthes { get; set; }

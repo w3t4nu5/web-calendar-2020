@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using WebCalendar.DAL.Models;
 
-namespace WebCalendar.Services.Sheduler
+namespace WebCalendar.Services.Scheduler
 {
     public static class CronExpressionGenerator
     {
@@ -33,22 +33,22 @@ namespace WebCalendar.Services.Sheduler
 
         private static string GetSeconds(IRepeatableActivity schedule)
         {
-            return schedule.NotifyAt.Seconds.ToString();
+            return schedule.StartTime.Second.ToString();
         }
 
         private static string GetMinutes(IRepeatableActivity schedule)
         {
-            return schedule.NotifyAt.Minutes.ToString();
+            return schedule.StartTime.Minute.ToString();
         }
 
         private static string GetHours(IRepeatableActivity schedule)
         {
-            return schedule.NotifyAt.Hours.ToString();
+            return schedule.StartTime.Hour.ToString();
         }
 
         private static string GetDaysOfMounth(IRepeatableActivity schedule)
         {
-            IEnumerable<int> daysOfMounth = schedule.DaysOfWeek;
+            IEnumerable<int> daysOfMounth = schedule.DaysOfMounth;
 
             if (daysOfMounth == null || daysOfMounth.Count() == 0)
             {

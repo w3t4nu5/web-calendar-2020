@@ -5,8 +5,9 @@ using WebCalendar.Common.Contracts;
 using WebCalendar.DAL;
 using WebCalendar.Services.Contracts;
 using WebCalendar.Services.Models.Task;
-using WebCalendar.Services.Sheduler;
-using WebCalendar.Services.Sheduler.Models;
+using WebCalendar.Services.Scheduler;
+using WebCalendar.Services.Scheduler.Contracts;
+using WebCalendar.Services.Scheduler.Models;
 
 namespace WebCalendar.Services.Implementation
 {
@@ -27,11 +28,10 @@ namespace WebCalendar.Services.Implementation
         {
             DAL.Models.Entities.Task task = _mapper.Map<TaskCreationServiceModel, DAL.Models.Entities.Task>(entity);
             Guid id = (await _uow.GetRepository<DAL.Models.Entities.Task>().AddAsync(task)).Id;
-    
+
             await _uow.SaveChangesAsync();
-            var df = await _uow.GetRepository<DAL.Models.Entities.Task>().GetByIdAsync(id, include: );
-            SchedulerTask schedulerTask = _mapper.Map<DAL.Models.Entities.Task, SchedulerTask>(df);
-            await _schedulerService.ScheduleTaskAsync(schedulerTask);
+
+            await _schedulerService.ScheduleTaskById(id);
         }
 
         public async Task<IEnumerable<TaskServiceModel>> GetAllAsync()
@@ -62,6 +62,8 @@ namespace WebCalendar.Services.Implementation
                 .Map<DAL.Models.Entities.Task, TaskServiceModel>(task);
 
             await RemoveAsync(taskServiceModel);
+
+            await _schedulerService.UnscheduleTaskById(id);
         }
 
         public async Task RemoveAsync(TaskServiceModel entity)
@@ -80,6 +82,8 @@ namespace WebCalendar.Services.Implementation
             _uow.GetRepository<DAL.Models.Entities.Task>().Update(task);
 
             await _uow.SaveChangesAsync();
+
+            await _schedulerService.RescheduleTaskById(entity.Id);
         }
     }
 }

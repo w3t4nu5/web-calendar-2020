@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using WebCalendar.DAL.Models.Entities;
 
-namespace WebCalendar.Services.Sheduler
+namespace WebCalendar.Services.Scheduler
 {
     public static class ActivityExtension
     {

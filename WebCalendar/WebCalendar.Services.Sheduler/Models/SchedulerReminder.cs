@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using WebCalendar.DAL.Models.Entities;
-using WebCalendar.Services.Sheduler.Contracts;
+using WebCalendar.Services.Scheduler.Contracts;
 
-namespace WebCalendar.Services.Sheduler.Models
+namespace WebCalendar.Services.Scheduler.Models
 {
     public class SchedulerReminder : ISchedulerRepeatableActivity
     {
@@ -16,6 +16,6 @@ namespace WebCalendar.Services.Sheduler.Models
         public string CronExpression { get; set; }
         public int? RepetitionsCount { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<SchedulerUser> Users { get; set; }
     }
 }

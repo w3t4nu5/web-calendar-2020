@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using WebCalendar.Services.Sheduler.Models;
+using WebCalendar.Services.Scheduler.Implementation;
+using WebCalendar.Services.Scheduler.Models;
 
-namespace WebCalendar.Services.Sheduler
+namespace WebCalendar.Services.Scheduler
 {
     public static class SchedulerExtension
     {
@@ -20,17 +21,15 @@ namespace WebCalendar.Services.Sheduler
             JobKey jobKey = new JobKey(@event.Id.ToString(), ConstantsStorage.EVENT_GROUP);
             TriggerKey triggerKey = new TriggerKey(@event.Id.ToString(), ConstantsStorage.EVENT_GROUP);
 
-            IJobDetail job = JobBuilder.Create<HelloWorldJob>()
+            IJobDetail job = JobBuilder.Create<NotificationJob>()
                 .WithIdentity(jobKey)
-                .UsingJobData(HelloWorldJob.JobDataKey, JsonConvert.SerializeObject(@event))
-                .UsingJobData(HelloWorldJob.JobActivityTypeKey, ConstantsStorage.EVENT)
+                .UsingJobData(NotificationJob.JobDataKey, JsonConvert.SerializeObject(@event))
+                .UsingJobData(NotificationJob.JobActivityTypeKey, ConstantsStorage.EVENT)
                 .Build();
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity(triggerKey)
-                .StartAt(@event.StartTime)
                 .WithCronSchedule(@event.CronExpression)
-                .EndAt(@event.EndTime)
                 .Build();
 
             await scheduler.ScheduleJob(job, trigger);
@@ -55,15 +54,14 @@ namespace WebCalendar.Services.Sheduler
             JobKey jobKey = new JobKey(reminder.Id.ToString(), ConstantsStorage.REMINDER_GROUP);
             TriggerKey triggerKey = new TriggerKey(reminder.Id.ToString(), ConstantsStorage.REMINDER_GROUP);
 
-            IJobDetail job = JobBuilder.Create<HelloWorldJob>()
+            IJobDetail job = JobBuilder.Create<NotificationJob>()
                 .WithIdentity(jobKey)
-                .UsingJobData(HelloWorldJob.JobDataKey, JsonConvert.SerializeObject(reminder))
-                .UsingJobData(HelloWorldJob.JobActivityTypeKey, ConstantsStorage.REMINDER)
+                .UsingJobData(NotificationJob.JobDataKey, JsonConvert.SerializeObject(reminder))
+                .UsingJobData(NotificationJob.JobActivityTypeKey, ConstantsStorage.REMINDER)
                 .Build();
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity(triggerKey)
-                .StartAt(reminder.StartTime)
                 .WithCronSchedule(reminder.CronExpression)
                 .EndAt(reminder.EndTime)
                 .Build();
@@ -89,10 +87,10 @@ namespace WebCalendar.Services.Sheduler
             JobKey jobKey = new JobKey(task.Id.ToString(), ConstantsStorage.TASK_GROUP);
             TriggerKey triggerKey = new TriggerKey(task.Id.ToString(), ConstantsStorage.TASK_GROUP);
 
-            IJobDetail job = JobBuilder.Create<HelloWorldJob>()
+            IJobDetail job = JobBuilder.Create<NotificationJob>()
                 .WithIdentity(jobKey)
-                .UsingJobData(HelloWorldJob.JobDataKey, JsonConvert.SerializeObject(task))
-                .UsingJobData(HelloWorldJob.JobActivityTypeKey, ConstantsStorage.TASK)
+                .UsingJobData(NotificationJob.JobDataKey, JsonConvert.SerializeObject(task))
+                .UsingJobData(NotificationJob.JobActivityTypeKey, ConstantsStorage.TASK)
                 .Build();
 
             ITrigger trigger = TriggerBuilder.Create()
@@ -122,10 +120,10 @@ namespace WebCalendar.Services.Sheduler
             TriggerKey triggerKey = new TriggerKey(@event.Id.ToString(), ConstantsStorage.EVENT_GROUP);
             DateTime startTime = new DateTime(@event.StartTime.Ticks - @event.NotifyBeforeInterval.Value.Ticks);
 
-            IJobDetail job = JobBuilder.Create<HelloWorldJob>()
+            IJobDetail job = JobBuilder.Create<NotificationJob>()
                 .WithIdentity(jobKey)
-                .UsingJobData(HelloWorldJob.JobDataKey, JsonConvert.SerializeObject(@event))
-                .UsingJobData(HelloWorldJob.JobActivityTypeKey, ConstantsStorage.ADVANCE_EVENT)
+                .UsingJobData(NotificationJob.JobDataKey, JsonConvert.SerializeObject(@event))
+                .UsingJobData(NotificationJob.JobActivityTypeKey, ConstantsStorage.ADVANCE_EVENT)
                 .Build();
 
             ITrigger trigger = TriggerBuilder.Create()

@@ -18,6 +18,8 @@ namespace WebCalendar.Services.Mapper
             CreateMap<User, UserTokenServiceModel>();
 
             CreateMap<User, UserSummaryModel>();
+
+            CreateMap<UserSummaryModel, User>();
         }
     }
 }

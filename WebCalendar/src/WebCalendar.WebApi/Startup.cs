@@ -13,12 +13,16 @@ using Microsoft.OpenApi.Models;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
+using Newtonsoft.Json;
 using WebCalendar.Common.Contracts;
 using WebCalendar.DAL.Models.Entities;
 using WebCalendar.DependencyResolver;
-using WebCalendar.Services.Sheduler;
-using WebCalendar.Services.Sheduler.Contracts;
-using WebCalendar.Services.Sheduler.Models;
+using WebCalendar.Services.Scheduler;
+using WebCalendar.Services.Scheduler.Contracts;
+using WebCalendar.Services.Scheduler.Implementation;
+using WebCalendar.Services.Scheduler.Models;
+using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebCalendar.WebApi
 {
@@ -37,8 +41,8 @@ namespace WebCalendar.WebApi
             // services.AddSingleton<IQuartzService, QuartzHostedService>();
             // services.AddHostedService<QuartzHostedService>();
 
-            services.AddSingleton<ISchedulerService, QuartzHostedService>();
-            services.AddHostedService(sp => sp.GetRequiredService<ISchedulerService>());
+            services.AddSingleton<IQuartzHostedService, QuartzHostedService>();
+            services.AddHostedService(sp => sp.GetRequiredService<IQuartzHostedService>());
 
             services.AddCors(options =>
             {
@@ -83,15 +87,29 @@ namespace WebCalendar.WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "WebCalendar API", Version = "v1"});
             });
 
+            services.AddMvc()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
+
+
+
             services.AddSingleton<IJobFactory, SingletonJobFactory>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddScoped<ISchedulerDataLoader, SchedulerDataLoader>();
+            services.AddScoped<ISchedulerService, SchedulerService>();
 
             // Add our job
-            services.AddSingleton<HelloWorldJob>();
+            services.AddSingleton<NotificationJob>();
           /*  services.AddSingleton(new JobSchedule(
                 jobType: typeof(HelloWorldJob),
                 cronExpression: "0/5 * * * * ?")); */
+        }
+
+        private void AddNewtonsoftJson(Func<object, object> p)
+        {
+            throw new NotImplementedException();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

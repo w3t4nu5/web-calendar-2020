@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebCalendar.Services.Sheduler
+namespace WebCalendar.Services.Scheduler
 {
     public static class ConstantsStorage
     {
